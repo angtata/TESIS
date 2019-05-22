@@ -22,12 +22,9 @@ export class SolicitarClaseMapaPage {
     console.log('ionViewDidLoad SolicitarClaseMapaPage');
   }
   
-  
   getPosition():any{
     let options = {
-      enableHighAccuracy: true,
-      timeout: 30000,
-      maximumAge: 0
+      timeout: 30000
     };
     this.geolocation.getCurrentPosition(options).then(response => {
       this.loadMap(response);
@@ -44,26 +41,28 @@ export class SolicitarClaseMapaPage {
     
     // create a new map by passing HTMLElement
     let mapEle: HTMLElement = document.getElementById('map');
-  
+
     // create LatLng object
     let myLatLng = {lat: latitude, lng: longitude};
-  
+
     // create map
     this.map = new google.maps.Map(mapEle, {
       center: myLatLng,
-      zoom: 15
+      zoom: 17
     });
 
-    
-  
     google.maps.event.addListenerOnce(this.map, 'idle', () => {
       let marker = new google.maps.Marker({
         position: myLatLng,
-        map: this.map
+        map: this.map,
+        title: 'Hello World!'
       });
       mapEle.classList.add('show-map');
     });
   }
 
+  search(value: any){
+    console.log(value)
+  }
 
 }

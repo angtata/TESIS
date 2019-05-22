@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.claseya.com" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>ClaseYA</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <description>Aplicacion de Clases al Instante</description>
+    <author email="angtatpp@gmail.com" href="http://ionicframework.com/">Tatiana Pena y Dario Fernandez</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -21,6 +21,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="StatusBarBackgroundColor" value="#E94F53" />
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDGkQmrdTrupVmDVWnZueRHSHLNM8e8M38" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -106,4 +107,5 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Saber tu ubicacion" />
     </plugin>
     <engine name="android" spec="~6.1.2" />
+    <allow-navigation href="http://192.168.0.15:8100" />
 </widget>
