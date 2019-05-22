@@ -1,0 +1,23 @@
+<ion-header >
+    <ion-navbar color="primary">
+        <ion-title>Tus Clases</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item *ngFor="let c of clases" (click)="Detail(c)">
+            <div float-left class="imageUser">
+                <img alt="Image" *ngIf="global.TipoIngeso == true"  float-left [src]="c.Profesor.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+                <img alt="Image" *ngIf="global.TipoIngeso == false" float-left [src]="c.Estudiante.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+            </div>
+            <p *ngIf="global.TipoIngeso == true">Nombre Profesor</p>
+            <p *ngIf="global.TipoIngeso == false">Nombre Estudiante</p>
+
+            <h2 *ngIf="global.TipoIngeso == true">{{c.Profesor.NombreCompleto}}</h2>
+            <h2 *ngIf="global.TipoIngeso == false">{{c.Estudiante.NombreCompleto}}</h2>
+            <p>{{c.Direccion}}</p>
+            <p>{{c.FechaHora}}</p>
+        </ion-item>
+    </ion-list>
+</ion-content>

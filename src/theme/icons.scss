@@ -1,0 +1,46 @@
+ion-icon {
+    &[class*="custom-"] {
+       mask-size: contain;
+       mask-position: 50% 50%;
+       mask-repeat: no-repeat;
+       background: currentColor;
+       width: 2em;
+       height: 2em;
+    }
+    &[class*="custom-user-icon"] {
+       mask-image: url(/assets/imgs/icons/favorite.svg);
+       content: url(/assets/imgs/icons/favorite.svg);
+    }
+    &[class*="custom-master"] {
+      mask-image: url(/assets/imgs/icons/mastercard.svg);
+      content: url(/assets/imgs/icons/mastercard.svg);
+   }
+   &[class*="custom-visa"] {
+      mask-image: url(/assets/imgs/icons/visa.svg);
+      content: url(/assets/imgs/icons/visa.svg);
+   }
+   &[class*="custom-cash"] {
+      mask-image: url(/assets/imgs/icons/cash.svg);
+      content: url(/assets/imgs/icons/cash.svg);
+   }
+   &[class*="custom-check"] {
+      mask-image: url(/assets/imgs/icons/correct-symbol.svg);
+      content: url(/assets/imgs/icons/correct-symbol.svg);
+   }
+   &[class*="custom-facebook"] {
+      mask-image: url(/assets/imgs/icons/facebook.svg);
+      content: url(/assets/imgs/icons/facebook.svg);
+   }
+   &[class*="custom-star"] {
+      mask-image: url(../assets/imgs/icons/iconfinder_star.svg);
+      content: url(../assets/imgs/icons/iconfinder_star.svg);
+   }
+   &[class*="custom-clear-star"] {
+      mask-image: url(../assets/imgs/icons/iconfinder-clear-star.svg);
+      content: url(../assets/imgs/icons/iconfinder-clear-star.svg);
+   }
+   &[class*="custom-half-star"] {
+      mask-image: url(../assets/imgs/icons/iconfinder-half-star.svg);
+      content: url(../assets/imgs/icons/iconfinder-half-star.svg);
+   }
+ }

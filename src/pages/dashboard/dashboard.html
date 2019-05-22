@@ -1,0 +1,52 @@
+<ion-header >
+    <ion-navbar color="primary">
+      <ion-buttons left>
+        <button ion-button menuToggle color="secondary">
+          <ion-icon name="menu" ></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-buttons right>
+        <ion-toggle [ngModel]="estado" color="secondary" (ngModelChange)="UpdateEstado($event)" ></ion-toggle>
+      </ion-buttons>
+        <div class="imageUser" float-left>
+            <img alt="Image" float-left [src]="global.CurrentUser.Imagen | sanitizeUrl" onError="this.src='assets/imgs/User.png'">
+        </div>
+        <ion-title>
+          {{global.CurrentUser.NombreCompleto}}
+          <p class="subtitle">{{global.CurrentUser.Calificacion}} / 5.0 </p>
+          <rating [(ngModel)]="global.CurrentUser.Calificacion" 
+            readOnly="true" 
+            max="5"
+            emptyStarIconName="custom-clear-star" 
+            halfStarIconName="custom-half-star" 
+            starIconName="custom-star" 
+            nullable="false">
+          </rating>
+        </ion-title>
+        
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-card>
+      <ion-card-header>  
+        <ion-card-title>Tus clases dictadas</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+          <canvas #barHoras></canvas>
+          <button ion-button color="secondary" class="CardButton" (click)="openPageClasesList()">Mira tus clases</button>
+      </ion-card-content>
+    </ion-card>
+    <h1>¡Tus Ultimas Clases!</h1>
+    <ion-list>
+        <ion-item *ngFor="let clase of lastclases">
+            <div float-left class="imageUser">
+              <img alt="Image" float-left [src]="clase.Estudiante.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+            </div>
+            <h2>{{clase.Estudiante.NombreCompleto}}</h2>
+            <p>{{clase.Direccion}}</p>
+            <p>{{clase.FechaHora}}</p>
+            <ion-icon *ngFor="let dummy of ' '.repeat(clase.CalificacionEstudiante).split(''), let x = index" name="custom-star" class="star"></ion-icon>
+            <button class="CalButton" ion-button color="secondary" *ngIf="!clase.CalificacionEstudiante" (click)="calificarClase(clase)">¡Califica tu Clase!</button>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,57 @@
+<ion-header >
+  <ion-navbar color="primary">
+      <ion-title>Solicitud de Clase</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+            <p class="text2">¿Qué tipo de profesor buscas?</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col *ngFor="let item of options.slice(0,2)" col-6 >
+          <button ion-fab class="fab" (click)="itemSelected(item)">
+            <img alt="Image" [src]="item.image" [ngStyle]="{'border': item.style}">
+          </button>
+          <p *ngIf="item.id != 1 && item.id != 2" class="text">{{item.opcion}}</p>
+          <button *ngIf="item.id == 1" ion-button clear icon-end color="text" class="detailButton" (click)="infoExperto()">
+            {{item.opcion}}
+            <ion-icon color="text" name="information-circle" ></ion-icon>
+          </button>
+          <button *ngIf="item.id == 2" ion-button clear icon-end color="text" class="detailButton" (click)="infoPrincipiante()">
+            {{item.opcion}}
+            <ion-icon color="text" name="information-circle" ></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size="1">
+              <p class="text2">¿Qué tipo de clase buscas?</p>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col *ngFor="let item of options.slice(2,4)" col-6 >
+          <button ion-fab class="fab" (click)="itemSelected(item)">
+            <img alt="Image" [src]="item.image" [ngStyle]="{'border': item.style}">
+          </button>
+          <p class="text">{{item.opcion}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size="1">
+              <p class="text2">¿Cómo quieres ver tu clase?</p>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col *ngFor="let item of options.slice(4,6)" col-6 >
+            <button ion-fab class="fab" (click)="itemSelected(item)">
+              <img alt="Image" [src]="item.image" [ngStyle]="{'border': item.style}">
+            </button>
+            <p class="text">{{item.opcion}}</p>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>

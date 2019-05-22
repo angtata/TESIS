@@ -1,0 +1,89 @@
+<ion-header >
+    <ion-navbar color="primary">
+        <ion-title>Detalle de tu Clase</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding >
+  <ion-card *ngIf="!calificarClase" class="Detalle">
+      <ion-card-header>  
+        <div float-right class="imageUser">
+            <img alt="Image" *ngIf="global.TipoIngeso == true"  float-right [src]="clase.Profesor.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+            <img alt="Image" *ngIf="global.TipoIngeso == false" float-right [src]="clase.Estudiante.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+        </div>  
+        <div *ngIf="global.TipoIngeso == true" class="line-text">
+            <p ion-text color="secondary">Nombre Profesor:</p>
+            <p ion-text class="principal-text">{{clase.Profesor.NombreCompleto}}</p>
+            <p ion-text color="secondary">{{fecha}}</p>  
+        </div>
+        <p *ngIf="global.TipoIngeso == true" float-left ion-text class="principal-text">{{clase.Direccion}}</p>
+        <div *ngIf="global.TipoIngeso == false" class="line-text">
+            <p ion-text color="secondary">Nombre Estudiante:</p>
+            <p ion-text class="principal-text">{{clase.Estudiante.NombreCompleto}}</p>
+            <p ion-text color="secondary">{{fecha}}</p> 
+        </div> 
+        <p *ngIf="global.TipoIngeso == false" float-left ion-text class="principal-text">{{clase.Direccion}}</p> 
+      </ion-card-header>
+    <ion-card-content> 
+        <div *ngIf="global.TipoIngeso == true" style="text-align: center;">
+            <p *ngIf="clase.CalificacionProfesor" ion-text class="principal-text" >Calificaste a {{clase.Profesor.NombreCompleto}} </p>
+            <p *ngIf="!clase.CalificacionProfesor" ion-text class="principal-text">¡Aun no has calificado a {{clase.Profesor.NombreCompleto}}!</p>
+            <ion-icon *ngFor="let dummy of ' '.repeat(clase.CalificacionProfesor).split(''), let x = index" name="custom-star" class="star"></ion-icon>
+            <button class="CalButton" ion-button color="secondary" *ngIf="!clase.CalificacionProfesor" (click)="calificar()">Calificar</button>
+        </div>
+        <div *ngIf="global.TipoIngeso == false" style="text-align: center;">
+            <p *ngIf="clase.CalificacionEstudiante" ion-text class="principal-text" >Calificaste a {{clase.Estudiante.NombreCompleto}} </p>
+            <p *ngIf="!clase.CalificacionEstudiante" ion-text class="principal-text">¡Aun no has calificado a {{clase.Estudiante.NombreCompleto}}!</p>
+            <ion-icon *ngFor="let dummy of ' '.repeat(clase.CalificacionEstudiante).split(''), let x = index" name="custom-star" class="star"></ion-icon>
+            <button class="CalButton" ion-button color="secondary" *ngIf="!clase.CalificacionEstudiante" (click)="calificar()">Calificar</button>
+        </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="calificarClase" class="Calificar">
+    <ion-card-header>
+        <ion-card-title>
+            ¡Califica tu Clase con <span *ngIf="global.TipoIngeso == false" >{{clase.Estudiante.NombreCompleto}}</span><span *ngIf="global.TipoIngeso == true">{{clase.Profesor.NombreCompleto}}</span>!
+        </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <div float-right class="imageUser2">
+            <img alt="Image" float-right *ngIf="global.TipoIngeso == true" [src]="clase.Profesor.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+            <img alt="Image" float-right *ngIf="global.TipoIngeso == false" [src]="clase.Estudiante.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+        </div> 
+        <form class="form" [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">  
+            <div class="line-text">
+                <rating
+                    readOnly="false" 
+                    max="5"
+                    emptyStarIconName="custom-clear-star" 
+                    halfStarIconName="custom-half-star" 
+                    starIconName="custom-star" 
+                    nullable="false" 
+                    formControlName="raiting">
+                </rating>
+            </div>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.raiting">
+                    <div class="error-message" *ngIf="validations_form.get('raiting').hasError(validation.type) && (validations_form.get('raiting').dirty)">
+                    {{ validation.message }}
+                    </div>
+                </ng-container>
+            </div>
+            <div class="item-title">
+                <ion-item no-lines >
+                    <ion-label floating>Cuéntanos tu experiencia</ion-label>
+                    <ion-textarea maxLeng="250" formControlName="mgs"></ion-textarea>
+                </ion-item>
+                <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.mgs">
+                        <div class="error-message" *ngIf="validations_form.get('mgs').hasError(validation.type) && (validations_form.get('mgs').dirty || validations_form.get('mgs').touched)">
+                        {{ validation.message }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            
+            <button class="SubmitButton" ion-button color="secondary" type="submit" [disabled]="!validations_form.valid">Calificar</button>
+        </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

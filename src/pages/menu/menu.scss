@@ -1,0 +1,64 @@
+page-menu {
+
+    ion-toolbar{
+        background-image: url('../assets/imgs/trianglify.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: transparent;
+    }
+
+    #imageUser{
+        width: 60px;     
+        height: 60px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        top: -15px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+        margin-right: 15px;
+      }
+  
+      img {
+        position: absolute;
+        max-width: 200%;
+        height: 100%;
+        width: auto;
+        top: 50%;     
+        left: 50%;
+        transform: translate( -50%, -50%);
+      }
+
+    .toolbar-title {
+        overflow: visible;
+        position: relative;
+        color: black;
+        font-size: 20px;
+        word-wrap: break-word;
+        white-space: normal;
+        #subtitle {
+          position: absolute;
+          margin-top: 2px;
+          font-size: 15px;
+        }
+      }
+
+      .rating{
+        margin-top: 0px;
+        margin-left: 20px;
+      }
+      .rating li {
+        padding: 0px 0px !important;
+        background: none;
+        ion-icon {
+          font-size: 8px;
+        }
+      }
+
+      .image-transparent{
+        width: 80%;
+        height: auto;
+        opacity: 0.2;
+      }
+
+}

@@ -1,0 +1,31 @@
+page-retiros {
+    ion-card{
+        margin-top: 10%;
+        ion-card-content{
+            background-color: #FFD347;
+        }
+    }
+    
+
+    .toolbar-title {
+        overflow: visible;
+        position: relative;
+        top : 0px;
+        font-size: 2em;
+        left: -23px;
+        text-align: center;
+      }
+
+    .CardButton2 {
+        margin-left: 5%;
+        background-color: #E94F53;
+        width: 90%;
+      }
+
+    .image-transparent{
+        margin-top: 20px;
+        width: 80%;
+        height: auto;
+        opacity: 0.2;
+    }
+}

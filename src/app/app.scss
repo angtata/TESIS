@@ -14,3 +14,91 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+@import "../theme/icons.scss";
+
+#MenuTitle{
+    padding-bottom: 5%;
+    padding-top: 10%;
+}
+
+#generalMenu{
+    position: absolute;
+    bottom: 0%;
+    margin: 0%;
+    left: 0%;
+    right: 0%;
+}
+
+.custom {
+    border: none;
+    background-color: white !important; /* This sets the background color*/
+   }
+
+/*Set the background to transparent for ion-item*/
+.custom .item {
+  background-color: transparent;
+  border: none;
+}
+  
+/*Changes the border for the last item*/
+
+.custom .item:first-child{
+  border-top: 1px solid #c9c9c9;
+}
+  
+.custom .item-complex .item-content, .dark .item-radio .item-content {
+  background-color: transparent;
+  border: none;
+}
+
+ion-toolbar .toolbar-title{
+  font-size: 100%;
+}
+
+ion-navbar .toolbar-title{
+  position: absolute;
+  top: 25px;
+}
+
+.CardButton {
+  background-color: #E94F53;
+  width: 100%;
+}
+
+.ButtonOut{
+  width: 80%;
+}
+
+.card-md .item-md.item-block:not(:last-child) .item-inner {
+  border-bottom: 1px solid #dedede;
+}
+
+.card-md .item-md.item-block:not(.item-input):not(.item-select):not(.item-radio):not(.item-checkbox) .item-inner {
+  border: 0;
+}
+
+
+.select-modal {
+  background: rgba(0, 0, 0, 0.5) !important;
+  padding: 40% 0%  !important;
+}
+
+.clip-circle {
+  //border-radius: 50%;
+  position: absolute;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  top: 50%;     
+  left: 50%;
+  transform: translate( -50%, -50%);
+  //clip-path: circle(40px at center);
+}
+.imclip-circleg.landscape {
+  height: 100%;
+  width: auto;
+}
+
+ion-header ion-icon.back-button-icon.icon {
+  color: map-get($colors, secondary);
+}

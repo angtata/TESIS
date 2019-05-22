@@ -1,0 +1,62 @@
+<ion-header >
+    <ion-navbar color="primary">
+        <ion-title>Tu Perfil</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-title>
+    </ion-card-title>
+    <ion-card-content>
+        <div class="imageUser">
+            <img alt="Image" [src]="global.CurrentUser.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+            <button ion-button clear class="camera_icon" color="secondary" (click)="SubirImagen()" [disabled]="!validations_form.valid"> <ion-icon name="camera"></ion-icon> </button>
+        </div> 
+        <div class="title">
+          <p>{{global.CurrentUser.NombreCompleto}}</p>
+          <rating [(ngModel)]="global.CurrentUser.Calificacion" 
+            readOnly="true" 
+            max="5"
+            emptyStarIconName="custom-clear-star" 
+            halfStarIconName="custom-half-star" 
+            starIconName="custom-star" 
+            nullable="false">
+          </rating>
+        </div>
+        <form class="form" [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">  
+            <ion-item>
+                <ion-label floating color="text">Nombre Completo</ion-label>
+                <ion-input type="text" formControlName="nombre"></ion-input>
+            </ion-item>
+            <div formGroupName="country_phone">
+              <ion-item>
+                <ion-label floating color="text">Celular</ion-label>
+                <ion-input [textMask]="{mask: validations_form.value.country_phone.country.phone_mask}" type="number" formControlName="phone"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.phone">
+                  <div class="error-message" *ngIf="validations_form.get('country_phone').get('phone').hasError(validation.type) && (validations_form.get('country_phone').get('phone').dirty || validations_form.get('country_phone').get('phone').touched)">
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <ion-item *ngIf="global.TipoIngeso == false">
+              <ion-label floating color="text">Escolaridad: </ion-label>
+              <ion-select formControlName="scholarship" cancelText="Cancelar" okText="Seleccionar">
+                  <ion-option *ngFor="let scholar of scholarshipList" [value]="scholar.EscolaridadId">{{scholar.Descripcion}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="global.TipoIngeso == false ">
+              <button ion-button clear icon-end type="button" color="text" (click)="AddMateria()">
+                  Agregrar Materia:
+                  <ion-icon color="secondary" name="create" ></ion-icon>
+              </button>
+              <ion-tags-input [readonly]="true" [color]="'#E94F53'" [placeholder]="'Materias'" formControlName="materias" ></ion-tags-input>
+            </ion-item>
+            <button class="SubmitButton" ion-button color="secondary" type="submit" [disabled]="!validations_form.valid">Actualizar</button>
+        </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

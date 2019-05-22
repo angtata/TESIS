@@ -1,0 +1,116 @@
+page-clases-detail {
+    ion-card-header{
+        border-bottom: 3px solid;
+        border-image: linear-gradient(45deg, #FFD347 0%, #E94F53 100%) 1;
+    }
+    .Calificar{
+      ion-card-header{
+        word-wrap: break-word;
+        white-space: normal;
+        background: linear-gradient(to top, #FFF1C9 0%, #FFD347 100%);
+      }       
+    }
+    .Detalle{
+      ion-card-content{
+        background: linear-gradient(to bottom, #FFF1C9 0%, #FFD347 100%);
+      }
+    }
+    .line-text{
+        width: 200px;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+    .principal-text{
+        font-size: 18px;
+        color : #343F4B;
+        
+    }
+    .underline{
+        text-decoration: underline;
+    }
+
+    .BlueContent {
+        background-color: #2C4672;
+        color: white;
+    }
+
+    .toolbar-title {
+        overflow: visible;
+        position: relative;
+        top : 0px;
+        font-size: 2em;
+        left: -23px;
+        text-align: center;
+      }
+
+      .imageUser{
+        width: 90px;     
+        height: 90px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .imageUser2{
+        width: 90px;     
+        height: 90px;
+        border-radius: 50%;
+        top: -20px;
+        position: relative;
+        overflow: hidden;
+      }
+  
+      img {
+        position: absolute;
+        max-width: 200%;
+        height: 100%;
+        width: auto;
+        top: 50%;     
+        left: 50%;
+        transform: translate( -50%, -50%);
+      }
+
+      .CalButton{
+        justify-content: center;
+        width: 86%;
+        margin-top: 5%;
+      }
+
+      .star{
+        height: 30px;
+        width: auto;
+        margin-left: 2px;
+      }
+
+      .rating{
+        position: relative  !important;
+        text-align: left  !important;
+        margin-top: 40px  !important;
+        margin-left: -40px !important;
+        z-index: 1000  !important;
+      }
+      .rating li {
+        padding: 1px 1px !important;
+        background: none  !important;
+        ion-icon {
+          font-size: 16px  !important;
+        }
+      }
+    
+      .item-title{
+        position: relative;
+        top: -60px !important;
+        left: -10px;
+      }
+
+      .error-message
+      {
+        color: #E94F53;
+        margin-left: 15px;
+      }
+
+      .SubmitButton{
+        justify-content: center;
+        width: 100%;
+      }
+}

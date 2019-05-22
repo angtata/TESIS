@@ -34,14 +34,27 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
+  primary:    #FFD347,
+  light-primary: #FFF1C9,
+  secondary:  #E94F53,
+  other:      #EB7111,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #343F4B,
+  light-dark: #1E2D3E,
+  text: #808080,
+  facebook: #3b5998,
+  google: #DD4B39,
 );
 
-
+$app-background: linear-gradient(to bottom, color($colors, light-primary) 0%, color($colors, primary) 100%);
+$background-color: transparent;
+$toolbar-background: transparent;
+$toggle-md-track-background-color-off: rgb(250, 244, 228);
+$toggle-md-handle-background-color-off: #FFF1C9;
+$searchbar-md-input-search-icon-color: #E94F53;
+$text-input-highlight-color-invalid:#E94F53;
+$modal-inset-box-shadow-color: rgba(0, 0, 0, .4);
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

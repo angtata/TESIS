@@ -1,0 +1,72 @@
+<ion-header >
+  <ion-navbar color="primary">
+      <ion-title>Métodos de Pago</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngIf="!addPaymentVar">
+    <ion-card-header>  
+      <ion-card-title>Métodos de Pago</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-list>
+          <p *ngIf="payments.length == 0" class="text" >¡Aun no tienes métodos de pago! Debes agregar uno para poder disfrutar de ClaseYA</p>
+          <ion-grid>
+            <ion-row *ngFor="let p of payments" (click)="selectPayment(p)">
+              <ion-col size="2">
+                <div>
+                  <h2>**** {{ p.number.toString().slice(-4) }}</h2>
+                </div>
+              </ion-col>
+              <ion-col size="2" offset="2" style="text-align: right;">
+                <div>
+                  <ion-icon *ngIf="delete" name="close-circle" style="width: 20px; height: 20px;" ></ion-icon>
+                  <ion-icon color="secondary" *ngIf="!p.selected && !delete" name="radio-button-off" style="width: 20px; height: 20px;"></ion-icon>
+                  <ion-icon color="secondary" *ngIf="p.selected && !delete" name="radio-button-on" style="width: 20px; height: 20px;"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-list>
+        <button class="buttonAdd" *ngIf="payments.length != 0 && !delete" ion-button color="secondary" (click)="changePay()">Modificar métodos de pago</button>
+        <button class="buttonAdd" *ngIf="payments.length == 0 || delete" ion-button color="secondary" (click)="addPayment()">Agregar método de pago</button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="addPaymentVar">
+      <ion-card-header>  
+        <ion-card-title>Métodos de Pago</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="card-container"></div>
+        <form  class='form-input' card #form="ngForm" container=".card-container" card-width="250" formatting="false" debug="true">
+          <div class="group"></div>
+          <div class="group">
+            <input type="tel" [(ngModel)]="card.number" name="number" required card-number>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Número de Tarjeta</label>
+          </div>   
+          <div class="group">
+              <input type="text" [(ngModel)]="card.name"  name="name" required card-name>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>Nombre Titular</label>
+          </div>
+          <div class="group">
+              <input type="tel" [(ngModel)]="card.expiration" name="expiry" required card-expiry>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>Fecha expiración</label>
+          </div>
+          <div class="group">
+              <input type="tel" [(ngModel)]="card.cvc"  name="cvc" required card-cvc>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>CVC</label>
+          </div>
+        </form>
+        <button [disabled]="!isComplete()" class="buttonAdd" ion-button color="secondary" (click)="addCard()">Agregar método de pago</button>
+      </ion-card-content>
+  </ion-card>
+</ion-content>

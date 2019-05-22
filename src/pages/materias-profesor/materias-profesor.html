@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar color="primary">
+      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+      <ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+        <ion-icon name="radio-button-on" item-start [style.color] = "isSelected(item)  ? '#FFD347' : '#E94F53'"></ion-icon>
+        <h2> {{item.Materia}} </h2>
+        <p> {{item.Area}} </p>
+      </ion-item>
+    </ion-list>
+    <ion-fab right bottom>
+        <button ion-fab color="secondary" (click)="OkMaterias()"><ion-icon name="checkmark"></ion-icon></button>
+        <br>
+        <button ion-fab><ion-icon name="add" (click)="addMateria()"></ion-icon></button>
+    </ion-fab>
+</ion-content>

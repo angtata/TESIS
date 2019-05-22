@@ -1,0 +1,32 @@
+<ion-content center>
+  <ion-card color="light">
+    <ion-card-header>
+      <ion-title> <span text-color="my-custom-color">Crear Cuenta</span></ion-title> 
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating color="text">Celular:</ion-label>
+        <ion-input required type="number" [(ngModel)]="celphone" ></ion-input>
+      </ion-item>
+      <ion-item class="terms-item">
+        <ion-label color="text">Soy Profesor</ion-label>
+        <ion-checkbox color="secondary" [(ngModel)]="teacher"></ion-checkbox>
+      </ion-item>
+      <ion-item class="terms-item">
+          <ion-label color="text">Soy Estudiante</ion-label>
+          <ion-checkbox color="secondary" [(ngModel)]="student"></ion-checkbox>
+      </ion-item>
+      <ion-item [hidden]="!teacher">
+        <ion-label floating color="text">Escolaridad: </ion-label>
+        <ion-select [(ngModel)]="scholarship" cancelText="Cancelar" okText="Seleccionar">
+            <ion-option *ngFor="let scholar of scholarshipList" [value]="scholar.EscolaridadId">{{scholar.Descripcion}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item text-center>
+        <button ion-button color="primary" (click)="CrearCuenta()"> Crear Cuenta </button>
+        <button ion-button color="secondary" (click)="Cancelar()"> Cancelar </button>
+      </ion-item>
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>

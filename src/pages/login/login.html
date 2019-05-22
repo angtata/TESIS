@@ -1,0 +1,44 @@
+
+<ion-content>
+  <ion-item no-lines style="text-align: center;">
+    <img src="assets/imgs/logo.png" width="60%" height="60%">
+  </ion-item>
+  <ion-card color="light">
+    <ion-item>
+      <ion-label floating>Correo:</ion-label>
+      <ion-input required type="email" [(ngModel)]="email" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating >Contaseña: </ion-label>
+      <ion-input required type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <p class="SmallText" (click)="Psw()">¿Olvidaste tu contraseña?</p>
+    </ion-item>
+    <div>
+      <ion-fab center edge>
+        <button ion-fab color="secondary" (click)="Login()"> <ion-icon name="checkmark"></ion-icon> </button>
+      </ion-fab>
+    </div>
+  </ion-card>
+
+  <div text-center>
+    <button ion-button icon-left color="facebook" id="facebookButton" (click)="FacebookLogin()">
+      <ion-icon name="logo-facebook"></ion-icon>
+      INGRESA CON FACEBOOK
+    </button>
+  </div>
+
+  <div text-center>
+    <button ion-button icon-left color="google" class="ButtonOut" (click)="GoogleLogin()">
+      <ion-icon name="logo-googleplus"></ion-icon>
+      INGRESA CON GOOGLE
+    </button>
+  </div>
+  <div text-center>
+    <p id="inicio"> ¿No tienes cuenta? </p>
+  </div>
+  <div text-center>
+    <button ion-button color="secondary" class="ButtonOut" (click)="Registro()">REGISTRATE</button>
+  </div>
+</ion-content>

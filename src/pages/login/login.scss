@@ -1,0 +1,39 @@
+page-login {
+    ion-content{
+        background: $app-background;
+    }
+    ion-item{
+        display: block;
+        float: center;
+    }
+    ion-card{
+        padding-bottom: 6%;
+        padding-right: 4%;
+    }
+    .SmallText{
+        color: #CACBCC;
+        float: right;
+    }
+    #facebookButton{
+        margin-top: 15%;
+        width: 80%;
+    }
+    
+
+    #inicio {
+        color: #47525E;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 5%;
+        padding-top: 5%;
+    }
+
+    .check{
+        display: flex;
+        align-items: center;
+    }
+    
+}

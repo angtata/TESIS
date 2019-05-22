@@ -1,0 +1,28 @@
+<ion-header >
+    <ion-navbar color="primary">
+        <ion-title>Mi Saldo</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="2">
+              <div>
+                <h2>Dinero Disponible:</h2>
+              </div>
+            </ion-col>
+            <ion-col size="2" offset="2">
+              <div>
+                <h1>${{Saldo}}</h1>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <button ion-button color="secondary" class="CardButton2" (click)="Debitar()" >RETIRAR DINERO</button>
+    <img class="image-transparent" src="assets/imgs/logo.png">
+</ion-content>

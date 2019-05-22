@@ -1,0 +1,46 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <div id="MenuTitle" menuClose (click)="openProfile()">
+        <div id="imageUser" float-left>
+            <img alt="Image" float-left [src]="global.CurrentUser.Imagen | sanitizeUrl" onError="this.src='assets/imgs/User.png'">
+        </div>
+        <ion-title>{{global.CurrentUser.NombreCompleto}}
+          <p id="subtitle">{{global.CurrentUser.Calificacion}} / 5.0 </p>
+          <rating [(ngModel)]="global.CurrentUser.Calificacion" 
+            readOnly="true" 
+            max="5"
+            emptyStarIconName="custom-clear-star" 
+            halfStarIconName="custom-half-star" 
+            starIconName="custom-star" 
+            nullable="false">
+          </rating>
+        </ion-title>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="custom">
+    <ion-list id="customMenu">
+      <button ion-item no-lines icon-start menuClose *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon name="{{p.icon}}"></ion-icon>
+        {{p.title}}
+      </button>
+    </ion-list>
+    <img class="image-transparent" src="assets/imgs/logo.png">
+    <ion-list id="generalMenu">
+        <button menuClose no-lines ion-item icon-start (click)="openPageHelp()">
+          <ion-icon name="help"></ion-icon>
+          Preguntas Frecuentes
+        </button>
+        <button menuClose no-lines ion-item icon-start (click)="openPageContact()">
+          <ion-icon name="clipboard"></ion-icon>
+          Sugerencias
+        </button>
+    </ion-list>
+  </ion-content>
+ 
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus  -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav> 

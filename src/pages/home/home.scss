@@ -1,3 +1,32 @@
 page-home {
+    [text-color="my-custom-color"] {
+        color: #47525E;
+    }
+    .text{
+        color: #FF9052;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .text2{
+        color: #47525E;
+        font-size: 16px;
+    }
 
+    .imageUser{
+        text-align: center;
+        width: 100px;     
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+  
+    img {
+    position: absolute;
+    max-width: 200%;
+    height: 100%;
+    width: auto;
+    top: 50%;     
+    left: 50%;
+    transform: translate( -50%, -50%);
+    }
 }

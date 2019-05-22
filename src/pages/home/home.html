@@ -1,14 +1,40 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content center text-center>
+  <ion-card color="light">
+      <ion-card-header>
+          <ion-title> <span text-color="my-custom-color">¿Como quieres iniciar tu app hoy?</span></ion-title> 
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+                <div class="imageUser">
+                    <img alt="Image" src="assets/imgs/Usuario.png" (click)="nextpageStudent()">
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="imageUser">
+                    <img alt="Image" src="assets/imgs/Profesor-Experto.png" (click)="nextpageTeacher()">
+                </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p class="text">Estudiante</p>
+            </ion-col>
+            <ion-col>
+              <p class="text">Profesor</p> 
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>
+                <p class="text2">Estoy en busca de una ClaseYA</p>
+              </ion-col>
+              <ion-col>
+                <p class="text2">Quiero dar una ClaseYA</p> 
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-card-content>
+  </ion-card>
 </ion-content>
