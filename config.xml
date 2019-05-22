@@ -95,7 +95,7 @@
     <plugin name="cordova-plugin-file" spec="~4.3.3" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
     <plugin name="cordova-plugin-googleplus" spec="~5.3.2">
-        <variable name="REVERSED_CLIENT_ID" value="457631098010-cpetq8gc07n5jcc4cd2cdpg4629b74pe.apps.googleusercontent.com" />
+        <variable name="REVERSED_CLIENT_ID" value="" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
     <plugin name="cordova-plugin-zip" spec="~3.1.0" />
@@ -108,7 +108,7 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Saber tu ubicacion" />
     </plugin>
     <plugin name="cordova-plugin-googlemaps" spec="~2.3.11">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDDm60BIavbW3vf3zYUKISqhz9846rXE-A" />
+        <variable name="API_KEY_FOR_ANDROID" value="" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>
