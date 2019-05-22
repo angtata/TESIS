@@ -47,12 +47,10 @@ import { ClasesServiceProvider } from '../providers/clases-service/clases-servic
 import { SanitizeProvider } from '../providers/sanitize/sanitize';
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { FacturasServiceProvider } from '../providers/facturas-service/facturas-service';
-import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import { SecureStorage } from '@ionic-native/secure-storage';
 import { CardModule } from 'ngx-card/ngx-card';
 import { MateriasEstudiantePage } from '../pages/materias-estudiante/materias-estudiante';
 import { Geolocation } from '@ionic-native/geolocation';
-import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
@@ -138,10 +136,8 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     EmailValidator,
     ClasesServiceProvider,
     FacturasServiceProvider,
-    NativePageTransitions,
     SecureStorage,
     Geolocation,
-    GoogleMaps,
   ]
 })
 export class AppModule {}

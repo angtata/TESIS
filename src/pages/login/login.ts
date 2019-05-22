@@ -11,7 +11,6 @@ import { Usuario } from '../../models/Usuario';
 import { MenuPage } from '../menu/menu';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { EmailProvider } from '../../providers/email-service/email-service';
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 @Component({
   selector: 'page-login',
@@ -22,29 +21,12 @@ export class LoginPage {
   email : any;
   password : any;
 
-  constructor(private nativePageTransitions: NativePageTransitions, private fb: Facebook, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, private alertCtrl: AlertController, public globalV : GlobalVariablesProvider, private appCtrl: App, private googlePlus: GooglePlus, private emailServie : EmailProvider) {
+  constructor(private fb: Facebook, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, private alertCtrl: AlertController, public globalV : GlobalVariablesProvider, private appCtrl: App, private googlePlus: GooglePlus, private emailServie : EmailProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-
-  ionViewWillLeave() {
-
-    let options: NativeTransitionOptions = {
-       direction: 'up',
-       duration: 500,
-       slowdownfactor: 3,
-       slidePixels: 20,
-       iosdelay: 100,
-       androiddelay: 150,
-       fixedPixelsTop: 0,
-       fixedPixelsBottom: 60
-      };
-   
-    this.nativePageTransitions.slide(options).catch(err =>{ console.error(JSON.stringify(err))})
-   
-   }
 
   Login(){
     this.userService.loginService(this.email, btoa(this.password)).then(data =>{
