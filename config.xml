@@ -3,7 +3,7 @@
     <name>ClaseYA</name>
     <description>Aplicacion de Clases al Instante</description>
     <author email="angtatpp@gmail.com" href="http://ionicframework.com/">Tatiana Pena y Dario Fernandez</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.15:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -12,6 +12,8 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="android-targetSdkVersion" value="26" />
+    <preference name="android-compileSdkVersion" value="26" />
+    <preference name="android-buildToolsVersion" value="26.0.1" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
@@ -21,7 +23,6 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="StatusBarBackgroundColor" value="#E94F53" />
-    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDGkQmrdTrupVmDVWnZueRHSHLNM8e8M38" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -106,6 +107,14 @@
     <plugin name="cordova-plugin-geolocation" spec="~2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Saber tu ubicacion" />
     </plugin>
-    <engine name="android" spec="~6.1.2" />
+    <plugin name="cordova-plugin-googlemaps" spec="~2.3.11">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDDm60BIavbW3vf3zYUKISqhz9846rXE-A" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+    </plugin>
     <allow-navigation href="http://192.168.0.15:8100" />
+    <plugin name="cordova-android-support-gradle-release" spec="~1.4.4">
+        <variable name="ANDROID_SUPPORT_VERSION" value="25.+" />
+    </plugin>
+    <engine name="android" spec="~6.1.2" />
 </widget>

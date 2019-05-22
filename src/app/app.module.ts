@@ -51,6 +51,7 @@ import { SecureStorage } from '@ionic-native/secure-storage';
 import { CardModule } from 'ngx-card/ngx-card';
 import { MateriasEstudiantePage } from '../pages/materias-estudiante/materias-estudiante';
 import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps } from "@ionic-native/google-maps";
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     FacturasServiceProvider,
     SecureStorage,
     Geolocation,
+    GoogleMaps,
   ]
 })
 export class AppModule {}
