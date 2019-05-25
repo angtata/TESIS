@@ -2,6 +2,7 @@ import { SolicitarClaseMapaPage } from './../solicitar-clase-mapa/solicitar-clas
 import { Clase } from './../../models/Clase';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class SolicitarClasePage {
               { id: 5, opcion : "Presencial", image : "assets/imgs/Presencial.png", isSelected : false, style : "none" },
               { id: 6, opcion : "Virtual", image : "assets/imgs/Virtual.png", isSelected : false, style : "none" } ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public global : GlobalVariablesProvider) {
   }
 
   ionViewDidLoad() {
@@ -46,7 +47,6 @@ export class SolicitarClasePage {
   validation(item : any, id1 : number, id2 : number){
     this.options[id1 -1].style = item.id == id2 && item.isSelected == true ? "none" : this.options[id1 -1].style;
     this.options[id1 -1].isSelected = item.id == id2 && item.isSelected == true ? false : this.options[id1 -1].isSelected;
-
   }
 
   itemSelected(item : any){
@@ -64,11 +64,13 @@ export class SolicitarClasePage {
       count = element.isSelected == true ? ++count : count
     })
     if(count == 3){
+      this.global.TempClase.opciones = this.options
       if(this.options[5].isSelected){
         console.log("buscar clase");
-      }
-      if(this.options[4].isSelected){
-        this.navCtrl.push(SolicitarClaseMapaPage);
+      }else{
+        if(this.options[4].isSelected){
+          this.navCtrl.push(SolicitarClaseMapaPage);
+        }
       }
     }
   }

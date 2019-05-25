@@ -14,7 +14,7 @@ export class MateriasEstudiantePage {
   items: any;
   allItems: any
   searchQuery: string = '';
-  selectedItems : any[] = [];
+  selectedItems : any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public materiasService : MateriasServiceProvider, public global : GlobalVariablesProvider) {
     this.materiasService.getMateriasList().then( data => {
@@ -43,30 +43,19 @@ export class MateriasEstudiantePage {
   }
 
   itemSelected(item){
-    if(this.selectedItems.find(function(element){ return element.MateriaId == item.MateriaId})){
-      this.selectedItems = this.arrayRemove(this.selectedItems,item)
-    }else{
-      this.selectedItems.push(item);
-    }
-  }
-
-  arrayRemove(arr, value) {
-    return arr.filter(function(ele){
-        return ele.MateriaId != value.MateriaId;
-    });
+    this.selectedItems = this.selectedItems == item ? this.selectedItems : item;
   }
 
   isSelected(item){
-    if(this.selectedItems.find(function(element){ return element.MateriaId == item.MateriaId}) == null){
-      return false;
-    }else{
+    if( this.selectedItems == item ){
       return true;
+    }else{
+      return false;
     }
   }
 
   OkMaterias(){
-    this.global.SelectedMaterias = this.selectedItems;
-    this.global.TempClase.MateriaId = this.selectedItems[0];
+    this.global.TempClase.materia = this.selectedItems;
     this.navCtrl.push(SolicitarClasePage);
   }
 

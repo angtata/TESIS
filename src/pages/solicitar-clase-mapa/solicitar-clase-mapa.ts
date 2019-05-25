@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { MapServiceProvider } from './../../providers/map-service/map-service';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Platform } from 'ionic-angular';
@@ -7,12 +8,16 @@ import {
   GoogleMap,
   GoogleMapsEvent,
   GoogleMapOptions,
+  MyLocation,
+  GoogleMapsAnimation,
   CameraPosition,
   MarkerOptions,
   Marker
 } from '@ionic-native/google-maps';
+import { Observable } from 'rxjs/Observable';
+import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
 
-//declare var google;
+declare var google;
 
 @Component({
   selector: 'page-solicitar-clase-mapa',
@@ -22,25 +27,28 @@ import {
 export class SolicitarClaseMapaPage {
 
   map: GoogleMap;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation, private platform: Platform) {
+  @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
+  addressElement: HTMLInputElement = null;
+  address: any;
+  StudentPos : any 
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private mapService : MapServiceProvider, public global : GlobalVariablesProvider) {
   }
 
   ngAfterViewInit() {
     this.loadMap();
+    this.initAutocomplete();
   }
-
-  
 
   loadMap(){
     let element: HTMLElement = document.getElementById('map_canvas');
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
-          lat: 43.0741904, // default location
-          lng: -89.3809802 // default location
+          lat: 3.359889, // default location
+          lng: -76.638565 // default location
         },
-        zoom: 18,
+        zoom: 17,
         tilt: 30
       }
     };
@@ -57,69 +65,125 @@ export class SolicitarClaseMapaPage {
       console.log(JSON.stringify(error));
     });
 
+    this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(
+      (data) => {
+        this.map.clear();
+        this.StudentPos = data[0]
+        this.setMarker(this.StudentPos)
+      }
+    );
+  }
+
+  setMarker(position){
+    this.map.animateCamera({
+      target: position,
+      duration: 1000,
+    });  
+    this.map.addMarker({
+      title: 'Prueba',
+      icon: {
+        url: "assets/imgs/Pin.png",
+        size: {
+            width: 60,
+            height: 60
+        }
+      },
+      animation: 'BOUNCE',
+      position: position
+    });
   }
 
   getPosition(): void{
     this.map.getMyLocation()
     .then(response => {
-      this.map.moveCamera({
-        target: response.latLng
-      });
-      this.map.addMarker({
-        title: 'My Position',
-        icon: 'blue',
-        animation: 'DROP',
-        position: response.latLng
-      });
+      this.StudentPos = response.latLng
+      this.setMarker(this.StudentPos)
     })
     .catch(error =>{
       console.log(JSON.stringify(error));
     });
   }
 
-
-  /*
-  getPosition():any{
-    let options = {
-      timeout: 30000
-    };
-    this.geolocation.getCurrentPosition(options).then(response => {
-      this.loadMap(response);
-    })
-    .catch(error =>{
-      console.error(JSON.stringify(error));
-    })
+  initAutocomplete(): void {
+    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.createAutocomplete(this.addressElement).subscribe((location) => {
+      console.log('Searchdata', location);
+      let latLngObj = {'lat': location.lat(), 'lng': location.lng()};
+      this.getAddress(latLngObj);
+      this.StudentPos = latLngObj
+      this.map.clear();
+      this.setMarker(this.StudentPos)
+    });
   }
 
-  loadMap(position: Geoposition){
-    let latitude = position.coords.latitude;
-    let longitude = position.coords.longitude;
-    console.log(latitude, longitude);
-    
-    // create a new map by passing HTMLElement
-    let mapEle: HTMLElement = document.getElementById('map');
-
-    // create LatLng object
-    let myLatLng = {lat: latitude, lng: longitude};
-
-    // create map
-    this.map = new google.maps.Map(mapEle, {
-      center: myLatLng,
-      zoom: 17
-    });
-
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
-      let marker = new google.maps.Marker({
-        position: myLatLng,
-        map: this.map,
-        title: 'Hello World!'
+  createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEl);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          sub.error({
+            message: 'Autocomplete returned place with no geometry'
+          });
+        } else {
+          let latLngObj = {'lat': place.geometry.location.lat(), 'long': place.geometry.location.lng()}
+          this.getAddress(latLngObj);
+          sub.next(place.geometry.location);
+        }
       });
-      mapEle.classList.add('show-map');
     });
-  }*/
+  }
 
-  search(value: any){
-    console.log(value)
+  getAddressComponentByPlace(place, latLngObj) {
+    var components;
+    components = {};
+    for(var i = 0; i < place.address_components.length; i++){
+      let ac = place.address_components[i];
+      components[ac.types[0]] = ac.long_name;
+    }
+    let addressObj = {
+      street: (components.street_number) ? components.street_number : 'not found',
+      area: components.route,
+      city: (components.sublocality_level_1) ? components.sublocality_level_1 : components.locality,
+      country: (components.administrative_area_level_1) ? components.administrative_area_level_1 : components.political,
+      postCode: components.postal_code,
+      loc: [latLngObj.long, latLngObj.lat],
+      address: this.address
+    }
+    localStorage.clear();
+    localStorage.setItem('carryr_customer', JSON.stringify(addressObj));
+    return components;
+  }
+
+  getAddress(latLngObj) {
+    // Get the address object based on latLngObj
+    this.mapService.getStreetAddress(latLngObj).subscribe(
+      s_address => {
+        if (s_address.status == "ZERO_RESULTS") {
+          this.mapService.getAddress(latLngObj).subscribe(
+            address => {
+              this.address = address.results[0].formatted_address;
+              this.getAddressComponentByPlace(address.results[0], latLngObj);
+            },
+            err => console.log("Error in getting the street address " + err)
+          )
+        } else {
+          this.address = s_address.results[0].formatted_address;
+          this.getAddressComponentByPlace(s_address.results[0], latLngObj);
+          console.log(this.address);
+        }
+      },
+      err => {
+        console.log('No Address found ' + err);
+      }
+    );
+  }
+
+  Solicitar(){
+    this.global.TempClase.ubicacion = this.StudentPos;
+    this.global.TempClase.direccion = this.address;
+    console.log("solicitat clase")
   }
 
 }

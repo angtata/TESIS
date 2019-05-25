@@ -1,9 +1,19 @@
-<ion-header>
-  <ion-navbar color="primary">
-      <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
-  <div id="map_canvas"></div>
+  <ion-searchbar autocorrect="off" autocapitalize="off" spellcheck="off" #searchbar placeholder="Search..." class="search-box"></ion-searchbar>
+  <div id="map_canvas">
+    <button ion-button color="secondary" class="MapButton" (click)="Solicitar()">¡Solicitar Clase!</button>
+  </div>
+  <div class="address-view">
+    <ion-list>
+      <ion-item no-lines class="help-text">
+        Ubicate en el mapa para seleccionar tu dirección
+      </ion-item>
+      <ion-item no-lines class="address-item">
+        <ion-label stacked class="title-label">Dirección</ion-label>
+        <ion-textarea class="address" [(ngModel)]="address"></ion-textarea>
+      </ion-item>
+      <ion-item>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

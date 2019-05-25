@@ -52,6 +52,8 @@ import { CardModule } from 'ngx-card/ngx-card';
 import { MateriasEstudiantePage } from '../pages/materias-estudiante/materias-estudiante';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from "@ionic-native/google-maps";
+import { MapServiceProvider } from '../providers/map-service/map-service';
+import { SolicitarClaseProvider } from '../providers/solicitar-clase/solicitar-clase';
 
 @NgModule({
   declarations: [
@@ -140,6 +142,8 @@ import { GoogleMaps } from "@ionic-native/google-maps";
     SecureStorage,
     Geolocation,
     GoogleMaps,
+    MapServiceProvider,
+    SolicitarClaseProvider,
   ]
 })
 export class AppModule {}
