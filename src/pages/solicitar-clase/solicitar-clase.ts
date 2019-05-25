@@ -1,8 +1,8 @@
 import { SolicitarClaseMapaPage } from './../solicitar-clase-mapa/solicitar-clase-mapa';
-import { Clase } from './../../models/Clase';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
+import { SolicitarClaseProvider } from '../../providers/solicitar-clase/solicitar-clase';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class SolicitarClasePage {
               { id: 5, opcion : "Presencial", image : "assets/imgs/Presencial.png", isSelected : false, style : "none" },
               { id: 6, opcion : "Virtual", image : "assets/imgs/Virtual.png", isSelected : false, style : "none" } ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public global : GlobalVariablesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public global : GlobalVariablesProvider, public solicitarClaseService : SolicitarClaseProvider) {
   }
 
   ionViewDidLoad() {
@@ -67,6 +67,7 @@ export class SolicitarClasePage {
       this.global.TempClase.opciones = this.options
       if(this.options[5].isSelected){
         console.log("buscar clase");
+        //this.solicitarClaseService.SolicitarClase(this.global.TempClase);      
       }else{
         if(this.options[4].isSelected){
           this.navCtrl.push(SolicitarClaseMapaPage);

@@ -25,6 +25,7 @@
     "@ionic-native/core": "~4.20.0",
     "@ionic-native/device": "^4.20.0",
     "@ionic-native/facebook": "^4.20.0",
+    "@ionic-native/fcm": "^4.20.0",
     "@ionic-native/file": "^4.20.0",
     "@ionic-native/file-transfer": "^4.20.0",
     "@ionic-native/geolocation": "^4.20.0",

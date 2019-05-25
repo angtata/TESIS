@@ -35,7 +35,7 @@ export class UserServiceProvider {
 
   getUserByEmail(email){
     return new Promise((resolve, reject) => {
-      this.http.get(`${Configuracion.URL}usuarios/${email}`).subscribe( data =>{
+      this.http.get(`${Configuracion.URL}usuarios/user/${email}`).subscribe( data =>{
         resolve(data.json());
       }, err =>{ reject(err) })
     });
@@ -91,6 +91,14 @@ export class UserServiceProvider {
         resolve(data.json());
       }, err =>{ reject(err) })
     });
+  }
+
+  getAllTeachers(){
+    return new Promise ((resolve, reject) => {
+      this.http.get(`${Configuracion.URL}usuarios/profesores`).subscribe(data => {
+        resolve(data.json());
+      }, err => { reject(err) })
+    })
   }
 
 }

@@ -18,7 +18,7 @@ export class GlobalVariablesProvider {
   public TempEmail : any;
   public TempPhone : any;
   public TempName : any;
-  public TempClase = { materia : "", opciones : [] , ubicacion : [], direccion : "" }
+  public TempClase = { materia : "", opciones : [] , ubicacion : {}, direccion : "" }
 
   constructor( private imagePicker: ImagePicker, private imageResizer: ImageResizer, private transfer: FileTransfer, private file: File) {
     console.log('Hello GlobalVariablesProvider Provider');

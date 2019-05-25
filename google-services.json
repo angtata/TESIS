@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "457631098010",
+    "firebase_url": "https://claseya-7d0c7.firebaseio.com",
+    "project_id": "claseya-7d0c7",
+    "storage_bucket": "claseya-7d0c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457631098010:android:4557685d65b834f8",
+        "android_client_info": {
+          "package_name": "io.claseya.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457631098010-fo32karnmcbt6l2d82ns2a299660glhh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.claseya.com",
+            "certificate_hash": "309bce9ee425e016367fadb019f9f282458ad40c"
+          }
+        },
+        {
+          "client_id": "457631098010-85odjqv45imbinik2ugj7hdjje7g9oad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.claseya.com",
+            "certificate_hash": "f0bc5c05c7438d9024a092c68c6ca557afc38af5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQrB7iUY-un_id-jh9ee1-1K81pIW5CbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,6 @@
 import { MapServiceProvider } from './../../providers/map-service/map-service';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-import { Platform } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -16,6 +14,7 @@ import {
 } from '@ionic-native/google-maps';
 import { Observable } from 'rxjs/Observable';
 import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
+import { SolicitarClaseProvider } from '../../providers/solicitar-clase/solicitar-clase';
 
 declare var google;
 
@@ -32,7 +31,7 @@ export class SolicitarClaseMapaPage {
   address: any;
   StudentPos : any 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mapService : MapServiceProvider, public global : GlobalVariablesProvider) {
+  constructor(public solicitarClaseService : SolicitarClaseProvider, public navCtrl: NavController, public navParams: NavParams, private mapService : MapServiceProvider, public global : GlobalVariablesProvider) {
   }
 
   ngAfterViewInit() {
@@ -183,6 +182,7 @@ export class SolicitarClaseMapaPage {
   Solicitar(){
     this.global.TempClase.ubicacion = this.StudentPos;
     this.global.TempClase.direccion = this.address;
+    this.solicitarClaseService.SolicitarClaseP(this.global.TempClase);      
     console.log("solicitat clase")
   }
 
