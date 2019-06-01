@@ -52,7 +52,6 @@ export class NotificationsProvider {
 
   recibeNotificaciones() {
     this.fcm.onNotification().subscribe(data => {
-      
         this.global.TempClase = data.value;
         console.log(this.global.TempClase.user.NombreCompleto);
         let profileModal = this.modalCtrl.create(HomePage, {}, { cssClass: 'select-modal' });
