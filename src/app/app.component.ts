@@ -4,6 +4,10 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from './../pages/login/login';
+import { FCM } from '@ionic-native/fcm';
+import { NotificationsProvider } from '../providers/notifications/notifications';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +18,7 @@ export class MyApp {
   rootPage: any;
   tipoIngreso: boolean = false;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public notificaciones: NotificationsProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
     this.rootPage = LoginPage;
   }
@@ -25,6 +29,9 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.notificaciones.recibeNotificaciones();
     });
   }
+
+  
 }

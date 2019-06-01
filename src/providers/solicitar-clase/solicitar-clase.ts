@@ -1,6 +1,7 @@
 import { Usuario } from './../../models/Usuario';
 import { UserServiceProvider } from './../user-service/user-service';
 import { Injectable } from '@angular/core';
+import { NotificationsProvider } from '../notifications/notifications';
 
 declare var google;
 
@@ -8,7 +9,7 @@ declare var google;
 export class SolicitarClaseProvider {
 
   listProfes : Usuario[]
-  constructor(public users : UserServiceProvider) {
+  constructor(public users: UserServiceProvider, public notificaciones: NotificationsProvider) {
     console.log('Hello SolicitarClaseProvider Provider');
   }
 
@@ -35,6 +36,14 @@ export class SolicitarClaseProvider {
         distancias.push({user: element.UsuarioId, distancia : distance})
       })
       distancias = distancias.sort(function(a,b) { return a.distancia - b.distancia;})
+      console.log(JSON.stringify(distancias));
+      this.notificaciones.getTokenUser(distancias[0].user).then( data => {
+        let token = data[0].FCM_Token
+        console.log(token);
+        this.notificaciones.sendNotification(token,opciones)
+        .then(() => console.log("ok"))
+        .catch(err => console.error(JSON.stringify(err)))
+      }).catch( err => console.error(JSON.stringify(err)))
     })
   }
 

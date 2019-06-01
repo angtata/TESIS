@@ -11,6 +11,7 @@ import { Usuario } from '../../models/Usuario';
 import { MenuPage } from '../menu/menu';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { EmailProvider } from '../../providers/email-service/email-service';
+import { NotificationsProvider } from '../../providers/notifications/notifications';
 
 @Component({
   selector: 'page-login',
@@ -21,7 +22,7 @@ export class LoginPage {
   email : any;
   password : any;
 
-  constructor(private fb: Facebook, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, private alertCtrl: AlertController, public globalV : GlobalVariablesProvider, private appCtrl: App, private googlePlus: GooglePlus, private emailServie : EmailProvider) {
+  constructor(private fb: Facebook, public notificatios : NotificationsProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, private alertCtrl: AlertController, public globalV : GlobalVariablesProvider, private appCtrl: App, private googlePlus: GooglePlus, private emailServie : EmailProvider) {
   }
 
   ionViewDidLoad() {
@@ -75,6 +76,7 @@ export class LoginPage {
       let user = data[0];
       if (user != undefined){
         this.globalV.CurrentUser = <Usuario>user;
+        this.notificatios.getToken(this.globalV.CurrentUser.UsuarioId);
         this.globalV.downloadFile(this.globalV.CurrentUser.Correo).then( file => {
           this.globalV.CurrentUser.Imagen = String(file) + '?' + this.random();
           if(this.globalV.CurrentUser.TipoUsuario == 4 || this.globalV.CurrentUser.TipoUsuario == 5){

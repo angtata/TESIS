@@ -54,6 +54,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { MapServiceProvider } from '../providers/map-service/map-service';
 import { SolicitarClaseProvider } from '../providers/solicitar-clase/solicitar-clase';
+import { FCM } from '@ionic-native/fcm';
+import { NotificationsProvider } from '../providers/notifications/notifications';
 
 @NgModule({
   declarations: [
@@ -144,6 +146,8 @@ import { SolicitarClaseProvider } from '../providers/solicitar-clase/solicitar-c
     GoogleMaps,
     MapServiceProvider,
     SolicitarClaseProvider,
+    FCM,
+    NotificationsProvider,
   ]
 })
 export class AppModule {}

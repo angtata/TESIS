@@ -180,6 +180,7 @@ export class SolicitarClaseMapaPage {
   }
 
   Solicitar(){
+    this.global.TempClase.user = this.global.CurrentUser;
     this.global.TempClase.ubicacion = this.StudentPos;
     this.global.TempClase.direccion = this.address;
     this.solicitarClaseService.SolicitarClaseP(this.global.TempClase);      
