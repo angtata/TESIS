@@ -107,15 +107,6 @@
     <plugin name="cordova-plugin-geolocation" spec="~2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Saber tu ubicacion" />
     </plugin>
-<<<<<<< HEAD
-=======
-    <plugin name="cordova-plugin-googlemaps" spec="~2.3.11">
-        <variable name="API_KEY_FOR_ANDROID" value="" />
-        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
-        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
-    </plugin>
-    <allow-navigation href="http://192.168.0.15:8100" />
->>>>>>> 2c39b233ea5db1d299e510b63509ff7b7aaec30d
     <plugin name="cordova-android-support-gradle-release" spec="~1.4.4">
         <variable name="ANDROID_SUPPORT_VERSION" value="25.+" />
     </plugin>
