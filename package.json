@@ -32,6 +32,7 @@
     "@ionic-native/google-plus": "^4.20.0",
     "@ionic-native/image-picker": "^4.20.0",
     "@ionic-native/image-resizer": "^4.20.0",
+    "@ionic-native/native-storage": "^4.20.0",
     "@ionic-native/secure-storage": "^4.20.0",
     "@ionic-native/splash-screen": "~4.20.0",
     "@ionic-native/status-bar": "~4.20.0",

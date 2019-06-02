@@ -1,0 +1,38 @@
+<ion-content center text-center>
+    <ion-card>
+
+      <ion-card-header>
+        <h1>SOLICITUD DE CLASE</h1>
+        <div class="imageUser">
+            <img alt="Image" [src]="global.TempClase.user.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+        </div> 
+      </ion-card-header>
+      <ion-card-content>
+          <div class="title">
+            <rating [(ngModel)]="global.TempClase.user.Calificacion" 
+              readOnly="true" 
+              max="5"
+              emptyStarIconName="custom-clear-star" 
+              halfStarIconName="custom-half-star" 
+              starIconName="custom-star" 
+              nullable="false">
+            </rating>
+            <ion-list no-lines>
+              <ion-item>
+                {{global.TempClase.user.NombreCompleto}}
+              </ion-item>
+              <ion-item>
+                {{global.TempClase.materia['Materia']}}
+              </ion-item>
+              <ion-item *ngFor="let o of opcionesClase" >
+                {{o.opcion}} 
+              </ion-item>
+            </ion-list>
+          </div>
+          <div class="content">
+              <button ion-button color="secondary" (click)="Rechazar()" >Rechazar</button>
+              <button ion-button color="primary" (click)="Aceptar()">Aceptar</button>
+          </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>

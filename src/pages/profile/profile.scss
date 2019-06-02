@@ -17,12 +17,15 @@ page-profile {
 
   .imageUser{
     margin-top: -110px;
-    left: 28%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
     width: 140px;     
     height: 140px;
     border-radius: 50%;
     position: relative;
     overflow: hidden;
+    
   }
 
   img {

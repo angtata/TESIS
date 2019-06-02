@@ -56,6 +56,7 @@ import { MapServiceProvider } from '../providers/map-service/map-service';
 import { SolicitarClaseProvider } from '../providers/solicitar-clase/solicitar-clase';
 import { FCM } from '@ionic-native/fcm';
 import { NotificationsProvider } from '../providers/notifications/notifications';
+import { SolicitudClasePage } from '../pages/solicitud-clase/solicitud-clase';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { NotificationsProvider } from '../providers/notifications/notifications'
     ProfilePage,
     SanitizeProvider,
     MateriasEstudiantePage,
+    SolicitudClasePage,
   ],
   imports: [ 
     BrowserModule,  
@@ -117,6 +119,7 @@ import { NotificationsProvider } from '../providers/notifications/notifications'
     UpdatePasswordPage,
     ProfilePage,
     MateriasEstudiantePage,
+    SolicitudClasePage,
   ],
   providers: [
     StatusBar,

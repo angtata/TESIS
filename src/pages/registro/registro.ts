@@ -13,6 +13,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { MenuPage } from '../menu/menu';
 import { MateriasServiceProvider } from '../../providers/materias-service/materias-service';
 import { EmailValidator } from '../../validators/email.validator';
+import { SecureStorage, SecureStorageObject } from '@ionic-native/secure-storage';
 
 @Component({
   selector: 'page-registro',
@@ -56,7 +57,7 @@ export class RegistroPage {
   }
   scholarshipList : any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public global : GlobalVariablesProvider, public platform :  Platform, public userService :  UserServiceProvider, private appCtrl: App, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public materiasService : MateriasServiceProvider,  public emailValidator: EmailValidator) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public global : GlobalVariablesProvider, public platform :  Platform, public userService :  UserServiceProvider, private appCtrl: App, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public materiasService : MateriasServiceProvider,  public emailValidator: EmailValidator, private secureStorage: SecureStorage) {
     platform.registerBackButtonAction(()=>{
       this.navCtrl.pop();
       this.global.SelectedMaterias = []
@@ -162,6 +163,11 @@ export class RegistroPage {
       this.userService.getUserByEmail(values.email).then( user => {
         this.user = user[0];
         this.global.CurrentUser = <Usuario>this.user;
+        this.secureStorage.create('login').then((storage: SecureStorageObject) =>{
+          storage.set('user', JSON.stringify(this.global.CurrentUser))
+            .then(() => {console.log("storage!!");})
+            .catch(err => { console.error(JSON.stringify(err)); console.log("Awww :(")})
+        })
         this.global.TipoIngeso = this.global.CurrentUser.TipoUsuario == 1 ? true : false;
         this.navCtrl.pop();
         if (!this.global.TipoIngeso){

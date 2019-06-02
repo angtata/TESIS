@@ -1,0 +1,71 @@
+page-solicitud-clase {
+
+    ion-card{
+        background-color: white !important;
+    }
+
+    ion-card-header{
+        background-image: url("../assets/imgs/trianglify.svg");
+        background-repeat: no-repeat;
+        background-size: 400px 300px;
+    }
+
+    ion-card-content{
+        border-top: 3px solid;
+        border-image: linear-gradient(45deg, #FFD347 0%, #E94F53 100%) 1;
+        background-color: white;
+    }
+
+    ion-item{
+        margin-bottom: -10px !important;
+        text-align: center !important;
+        text-transform: uppercase !important;
+    }
+
+    .imageUser{
+        margin: auto;
+        display: block;
+        width: 180px;     
+        height: 180px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    img {
+        position: absolute;
+        max-width: 200%;
+        height: 100%;
+        width: auto;
+        top: 50%;     
+        left: 50%;
+        transform: translate( -50%, -50%);
+    }
+
+    .title{
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .rating{
+        margin-top: -25px;
+        margin-left: -40px;
+        position: relative;
+        overflow: hidden;
+      }
+      .rating li {
+        padding: 0px 0px !important;
+        background: none  !important;
+        ion-icon {
+          font-size: 17px  !important;
+        }
+      }
+    
+      .content{
+        margin-top: 20px;
+        button{
+            width: 40%;
+            margin: 10px;
+        }
+      }
+}

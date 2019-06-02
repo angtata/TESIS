@@ -1,9 +1,8 @@
+import { SolicitudClasePage } from './../../pages/solicitud-clase/solicitud-clase';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Configuracion } from '../../app/app.configuration';
 import { FCM } from '@ionic-native/fcm';
-import { Usuario } from '../../models/Usuario';
-import { HomePage } from '../../pages/home/home';
 import { ModalController } from 'ionic-angular';
 import { GlobalVariablesProvider } from '../global-variables/global-variables';
 
@@ -52,11 +51,19 @@ export class NotificationsProvider {
 
   recibeNotificaciones() {
     this.fcm.onNotification().subscribe(data => {
-        this.global.TempClase = data.value;
-        console.log(this.global.TempClase.user.NombreCompleto);
-        let profileModal = this.modalCtrl.create(HomePage, {}, { cssClass: 'select-modal' });
-        profileModal.present();
+        this.global.TempClase = JSON.parse(data.value);
+        this.global.downloadFile(this.global.TempClase.user.Correo).then( file => {
+          this.global.TempClase.user.Imagen = String(file) + '?' + this.random();
+          console.log(this.global.TempClase.user.NombreCompleto);
+          let profileModal = this.modalCtrl.create(SolicitudClasePage, {}, { cssClass: 'select-modal2' });
+          profileModal.present();
+        })
     });
+  }
+
+  random(): number {
+    let rand = Math.floor(Math.random()*20000000)+1000000;
+    return rand;       
   }
 
 }

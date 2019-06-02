@@ -8,6 +8,7 @@ import { MenuPage } from '../menu/menu';
 import { MateriasProfesorPage } from '../materias-profesor/materias-profesor';
 import { ClasesServiceProvider } from '../../providers/clases-service/clases-service';
 import { Clase } from '../../models/Clase';
+import { SecureStorage, SecureStorageObject } from '@ionic-native/secure-storage';
 
 @Component({
   selector: 'page-redes-login',
@@ -29,7 +30,7 @@ export class RedesLoginPage {
   scholarship: any;
   scholarshipList: any;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, public globalV : GlobalVariablesProvider,private appCtrl: App,  public clasesService : ClasesServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, public globalV : GlobalVariablesProvider,private appCtrl: App,  public clasesService : ClasesServiceProvider,  private secureStorage: SecureStorage) {
     this.userService.getLevelUserList().then( data => {
       this.scholarshipList = data;
     });
@@ -79,6 +80,11 @@ export class RedesLoginPage {
       this.userService.getUserByEmail(this.email).then(user =>{
         this.user = user[0];
         this.globalV.CurrentUser = <Usuario>this.user;
+        this.secureStorage.create('login').then((storage: SecureStorageObject) =>{
+          storage.set('user', JSON.stringify(this.globalV.CurrentUser))
+            .then(() => {console.log("storage!!");})
+            .catch(err => { console.error(JSON.stringify(err)); console.log("Awww :(")})
+        })
         if(this.globalV.CurrentUser.TipoUsuario == 1){
           this.globalV.TipoIngeso = true;
           this.navCtrl.pop();

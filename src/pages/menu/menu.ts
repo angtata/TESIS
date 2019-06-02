@@ -1,8 +1,9 @@
+import { LoginPage } from './../login/login';
 import { DashboardPage } from './../dashboard/dashboard';
 import { DashboardEstudiantePage } from './../dashboard-estudiante/dashboard-estudiante';
 import { GlobalVariablesProvider } from './../../providers/global-variables/global-variables';
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Nav } from 'ionic-angular';
+import { NavController, NavParams, Nav, App } from 'ionic-angular';
 import { PagosConfigPage } from '../pagos-config/pagos-config';
 import { ClasesListPage } from '../clases-list/clases-list';
 import { RetirosPage } from '../retiros/retiros';
@@ -13,6 +14,7 @@ import { Clase } from '../../models/Clase';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Usuario } from '../../models/Usuario';
 import { ProfilePage } from '../profile/profile';
+import { SecureStorage, SecureStorageObject } from '@ionic-native/secure-storage';
 
 @Component({
   selector: 'page-menu',
@@ -24,7 +26,7 @@ export class MenuPage {
   rootPage: any;
   pages: Array<{title: string, component: any, icon : string}>;
   
-  constructor(public navCtrl: NavController, public global : GlobalVariablesProvider, public clasesService : ClasesServiceProvider, public userService :  UserServiceProvider) {
+  constructor(public navCtrl: NavController, public global : GlobalVariablesProvider, public clasesService : ClasesServiceProvider, public userService :  UserServiceProvider, private secureStorage: SecureStorage, private appCtrl: App) {
     
   }
 
@@ -105,6 +107,16 @@ export class MenuPage {
 
   openProfile(){
     this.nav.push(ProfilePage)
+  }
+
+  LoggOut(){
+    this.appCtrl.getRootNavs()[0].setRoot(LoginPage);
+    this.secureStorage.create('login')
+    .then((storage: SecureStorageObject) => {
+      storage.remove('user')
+     .then( data => console.log(data))
+     .catch(error => console.log(error))
+    })
   }
 
 }
