@@ -1,3 +1,4 @@
+import { NotificationsProvider } from './../../providers/notifications/notifications';
 import { LoginPage } from './../login/login';
 import { DashboardPage } from './../dashboard/dashboard';
 import { DashboardEstudiantePage } from './../dashboard-estudiante/dashboard-estudiante';
@@ -26,12 +27,13 @@ export class MenuPage {
   rootPage: any;
   pages: Array<{title: string, component: any, icon : string}>;
   
-  constructor(public navCtrl: NavController, public global : GlobalVariablesProvider, public clasesService : ClasesServiceProvider, public userService :  UserServiceProvider, private secureStorage: SecureStorage, private appCtrl: App) {
+  constructor(public navCtrl: NavController, public global : GlobalVariablesProvider, public clasesService : ClasesServiceProvider, public userService :  UserServiceProvider, private secureStorage: SecureStorage, private appCtrl: App, private notificaciones : NotificationsProvider) {
     
   }
 
   ionViewDidEnter(){
-    if(this.global.TipoIngeso){    
+    if(this.global.TipoIngeso || this.global.CurrentUser.TipoUsuario == 1){
+      this.global.TipoIngeso = true;    
       this.clasesService.getClasesListByStudent(this.global.CurrentUser.UsuarioId)
       .then( data =>{ 
         this.global.Clases = <Clase[]> data;
@@ -45,6 +47,7 @@ export class MenuPage {
       }).catch( err => { console.log(JSON.stringify(err))})
       
     }else{
+      this.global.TipoIngeso = false;    
       this.clasesService.getClasesListByTeacher(this.global.CurrentUser.UsuarioId)
       .then( data =>{ 
         this.global.Clases = <Clase[]> data;
@@ -111,6 +114,7 @@ export class MenuPage {
 
   LoggOut(){
     this.appCtrl.getRootNavs()[0].setRoot(LoginPage);
+    this.notificaciones.updateToken({ Token: '', UsuarioId : this.global.CurrentUser.UsuarioId })
     this.secureStorage.create('login')
     .then((storage: SecureStorageObject) => {
       storage.remove('user')

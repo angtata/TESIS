@@ -57,6 +57,7 @@ import { SolicitarClaseProvider } from '../providers/solicitar-clase/solicitar-c
 import { FCM } from '@ionic-native/fcm';
 import { NotificationsProvider } from '../providers/notifications/notifications';
 import { SolicitudClasePage } from '../pages/solicitud-clase/solicitud-clase';
+import { CandidatoClasePage } from '../pages/candidato-clase/candidato-clase';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { SolicitudClasePage } from '../pages/solicitud-clase/solicitud-clase';
     SanitizeProvider,
     MateriasEstudiantePage,
     SolicitudClasePage,
+    CandidatoClasePage,
   ],
   imports: [ 
     BrowserModule,  
@@ -120,6 +122,7 @@ import { SolicitudClasePage } from '../pages/solicitud-clase/solicitud-clase';
     ProfilePage,
     MateriasEstudiantePage,
     SolicitudClasePage,
+    CandidatoClasePage,
   ],
   providers: [
     StatusBar,

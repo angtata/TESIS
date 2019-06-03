@@ -7,6 +7,7 @@ import { ModalController } from 'ionic-angular';
 import { GlobalVariablesProvider } from '../global-variables/global-variables';
 
 @Injectable()
+
 export class NotificationsProvider {
 
   FCM_Token : any;
@@ -32,9 +33,9 @@ export class NotificationsProvider {
     });
   }
 
-  sendNotification(token : string, opciones){
+  sendNotification(token : string, opciones, mensaje ){
     return new Promise((resolve, reject) => {
-      let params = { Token: token, Opciones: opciones }
+      let params = { Token: token, Opciones: opciones, Titulo : mensaje.titulo, Cuerpo : mensaje.cuerpo }
       this.http.post(`${Configuracion.URL}notificaciones`, params).subscribe(data => {
         resolve(data.json());
       }, err => { reject(err) })
@@ -51,13 +52,17 @@ export class NotificationsProvider {
 
   recibeNotificaciones() {
     this.fcm.onNotification().subscribe(data => {
-        this.global.TempClase = JSON.parse(data.value);
+      let value = JSON.parse(data.value)
+      if(!this.global.TipoIngeso){
+        this.global.TempClase = value;
         this.global.downloadFile(this.global.TempClase.user.Correo).then( file => {
           this.global.TempClase.user.Imagen = String(file) + '?' + this.random();
-          console.log(this.global.TempClase.user.NombreCompleto);
           let profileModal = this.modalCtrl.create(SolicitudClasePage, {}, { cssClass: 'select-modal2' });
           profileModal.present();
         })
+      }else{
+        this.global.ClaseRechazada = value;
+      }
     });
   }
 

@@ -3,7 +3,7 @@
     <name>ClaseYA</name>
     <description>Aplicacion de Clases al Instante</description>
     <author email="angtatpp@gmail.com" href="http://ionicframework.com/">Tatiana Pena y Dario Fernandez</author>
-    <content original-src="index.html" src="http://192.168.1.67:8100" />
+    <content original-src="index.html" src="http://192.168.1.67:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -111,11 +111,12 @@
         <variable name="ANDROID_SUPPORT_VERSION" value="25.+" />
     </plugin>
     <plugin name="cordova-plugin-googlemaps" spec="~2.2.8">
-        <variable name="API_KEY_FOR_ANDROID" value="" />
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDDm60BIavbW3vf3zYUKISqhz9846rXE-A" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>
     <plugin name="cordova-plugin-fcm" spec="~2.1.2" />
     <engine name="android" spec="~6.1.2" />
     <allow-navigation href="http://192.168.1.67:8100" />
+    <allow-navigation href="http://192.168.1.67:8101" />
 </widget>

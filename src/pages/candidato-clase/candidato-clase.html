@@ -1,0 +1,39 @@
+<ion-content center text-center>
+    <ion-card>
+
+      <ion-card-header>
+        <h1>CANDIDATO PARA CLASE</h1>
+        <div class="imageUser">
+            <img alt="Image" [src]="global.ClaseRechazada.user.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+        </div> 
+      </ion-card-header>
+      <ion-card-content>
+          <div class="title">
+            <rating [(ngModel)]="global.ClaseRechazada.user.Calificacion" 
+              readOnly="true" 
+              max="5"
+              emptyStarIconName="custom-clear-star" 
+              halfStarIconName="custom-half-star" 
+              starIconName="custom-star" 
+              nullable="false">
+            </rating>
+            <ion-list no-lines>
+              <ion-item>
+                <span class="upper">{{global.ClaseRechazada.user.NombreCompleto}}</span>
+              </ion-item>
+              <ion-item>
+                ¿Te gusta este profe?
+              </ion-item>
+              <ion-item>
+                <p>¡Acepta la solicitud para ponerse en contacto!</p>
+              </ion-item>
+            </ion-list>
+          </div>
+          <div class="content">
+              <button ion-button color="secondary" (click)="Rechazar()" >Cancelar</button>
+              <button ion-button color="secondary" (click)="Seguir()" >Quiero otro</button>
+              <button ion-button color="primary" (click)="Aceptar()">Aceptar</button>
+          </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
