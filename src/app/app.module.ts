@@ -58,6 +58,9 @@ import { FCM } from '@ionic-native/fcm';
 import { NotificationsProvider } from '../providers/notifications/notifications';
 import { SolicitudClasePage } from '../pages/solicitud-clase/solicitud-clase';
 import { CandidatoClasePage } from '../pages/candidato-clase/candidato-clase';
+import { SearchingPage } from '../pages/searching/searching'; 
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -85,6 +88,7 @@ import { CandidatoClasePage } from '../pages/candidato-clase/candidato-clase';
     MateriasEstudiantePage,
     SolicitudClasePage,
     CandidatoClasePage,
+    SearchingPage,
   ],
   imports: [ 
     BrowserModule,  
@@ -95,6 +99,7 @@ import { CandidatoClasePage } from '../pages/candidato-clase/candidato-clase';
     IonTagsInputModule,
     Ionic2RatingModule,
     CardModule,
+    ComponentsModule,
   ],
   exports: [
     SanitizeProvider
@@ -123,6 +128,7 @@ import { CandidatoClasePage } from '../pages/candidato-clase/candidato-clase';
     MateriasEstudiantePage,
     SolicitudClasePage,
     CandidatoClasePage,
+    SearchingPage,
   ],
   providers: [
     StatusBar,

@@ -1,3 +1,21 @@
 page-searching {
+    ion-card{
+        height: 250px !important;
+        width: 250px !important;
+        background-color: #FFD347 !important;
+        border-radius: 50% !important;
+        margin: auto !important;
+        display: block !important;   
+        text-align: center !important;
+    }
 
+    h1{
+        width: 150px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
+        line-height: normal !important;
+        margin-top: 100px !important;
+    }
 }

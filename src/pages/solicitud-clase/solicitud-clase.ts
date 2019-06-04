@@ -11,15 +11,23 @@ import { NotificationsProvider } from '../../providers/notifications/notificatio
 export class SolicitudClasePage {
 
   opcionesClase: any;
-
+  loadProgress : number = 0;
+  
   constructor(public injector: Injector, public navCtrl: NavController, public navParams: NavParams, public global : GlobalVariablesProvider) {
     this.opcionesClase = this.global.TempClase.opciones.filter( element => {
       return element.isSelected == true;
     })
     this.opcionesClase.shift();
+    setTimeout( () => { this.Rechazar(); }, 25000 )
   }
 
   ionViewDidLoad() {
+    setInterval(() => {
+      if (this.loadProgress < 100)
+        this.loadProgress += 1;
+      else
+        clearInterval(this.loadProgress);
+    }, 250);
     console.log('ionViewDidLoad SolicitudClasePage');
   }
 

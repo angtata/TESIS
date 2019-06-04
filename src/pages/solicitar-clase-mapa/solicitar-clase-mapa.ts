@@ -1,6 +1,7 @@
+import { SearchingPage } from './../searching/searching';
 import { MapServiceProvider } from './../../providers/map-service/map-service';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -31,7 +32,7 @@ export class SolicitarClaseMapaPage {
   address: any;
   StudentPos : any 
 
-  constructor(public solicitarClaseService : SolicitarClaseProvider, public navCtrl: NavController, public navParams: NavParams, private mapService : MapServiceProvider, public global : GlobalVariablesProvider) {
+  constructor(public solicitarClaseService : SolicitarClaseProvider, public navCtrl: NavController, public navParams: NavParams, private mapService : MapServiceProvider, public global : GlobalVariablesProvider, public modalCtrl: ModalController) {
   }
 
   ngAfterViewInit() {
@@ -183,6 +184,8 @@ export class SolicitarClaseMapaPage {
     this.global.TempClase.user = this.global.CurrentUser;
     this.global.TempClase.ubicacion = this.StudentPos;
     this.global.TempClase.direccion = this.address;
+    let profileModal = this.modalCtrl.create(SearchingPage, {}, { cssClass: 'select-modal4' });
+    profileModal.present();
     this.solicitarClaseService.SolicitarClaseP(this.global.TempClase);
   }
 

@@ -1,7 +1,7 @@
 import { CandidatoClasePage } from './../../pages/candidato-clase/candidato-clase';
 import { Usuario } from './../../models/Usuario';
 import { UserServiceProvider } from './../user-service/user-service';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { NotificationsProvider } from '../notifications/notifications';
 import { GlobalVariablesProvider } from '../global-variables/global-variables';
 import { ModalController, AlertController } from 'ionic-angular';
@@ -16,7 +16,7 @@ export class SolicitarClaseProvider {
   listProfes : Usuario[];
   ProfesoresDisponible : any[] = [];
 
-  constructor(public users: UserServiceProvider, public notificaciones: NotificationsProvider, public global : GlobalVariablesProvider, public modalCtrl: ModalController, private alertCtrl: AlertController) {
+  constructor(public injector: Injector, public users: UserServiceProvider, public global : GlobalVariablesProvider, public modalCtrl: ModalController, private alertCtrl: AlertController) {
     console.log('Hello SolicitarClaseProvider Provider');
   }
 
@@ -58,23 +58,12 @@ export class SolicitarClaseProvider {
   }
 
   ValidarProfe(user, opciones){
-      this.notificaciones.getTokenUser(user).then( data => {
+      var notificaciones = this.injector.get(NotificationsProvider)
+      notificaciones.getTokenUser(user).then( data => {
         let token = data[0].FCM_Token
-        this.notificaciones.sendNotification(token,opciones,{ titulo : "¡Hay una Clase Disponible!" , cuerpo : `¡Acepta dictarle una clase a ${opciones.user.NombreCompleto}!`})
-        .then( () => { 
-          setTimeout( () => { 
-            if(this.global.ClaseRechazada.rechazar || this.global.ClaseRechazada.rechazar == null){
-              this.ProfesoresDisponible.pop();
-              this.Profesores();
-            }else{
-              this.global.downloadFile(this.global.ClaseRechazada.user.Correo).then( file => {
-                this.global.TempClase.user.Imagen = String(file) + '?' + this.random();
-                let profileModal = this.modalCtrl.create(CandidatoClasePage, {}, { cssClass: 'select-modal3' });
-                profileModal.present();
-              })
-            }
-          }, 30000);
-        })
+        opciones.hora = new Date();
+        notificaciones.sendNotification(token,opciones,{ titulo : "¡Hay una Clase Disponible!" , cuerpo : `¡Acepta dictarle una clase a ${opciones.user.NombreCompleto}!`})
+        .then( () => { this.Rechazar() })
         .catch(err => console.error(JSON.stringify(err)))
       }).catch( err => console.error(JSON.stringify(err)))
   }
@@ -82,6 +71,13 @@ export class SolicitarClaseProvider {
   random(): number {
     let rand = Math.floor(Math.random()*20000000)+1000000;
     return rand;       
+  }
+
+  Rechazar(){
+    setTimeout( () => { 
+      this.ProfesoresDisponible.pop(); 
+      this.Profesores();
+    }, 30000 ) 
   }
 
   errorAlert() {
