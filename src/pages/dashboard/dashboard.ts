@@ -4,11 +4,11 @@ import { GlobalVariablesProvider } from './../../providers/global-variables/glob
 import { ClasesDetailPage } from './../clases-detail/clases-detail';
 import { ClasesListPage } from './../clases-list/clases-list';
 import { Component, ViewChild, Pipe } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { ClasesServiceProvider } from '../../providers/clases-service/clases-service';
-import { Usuario } from '../../models/Usuario';
 import { Clase } from '../../models/Clase';
+import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
 @Component({
   selector: 'page-dashboard',
@@ -23,8 +23,9 @@ export class DashboardPage {
   GraficoHoras: any;
   lastclases : Clase[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public global : GlobalVariablesProvider, public clasesService : ClasesServiceProvider, public userService : UserServiceProvider) {
+  constructor(private alertCtrl: AlertController, private locationTracker : LocationTrackerProvider, public navCtrl: NavController, public navParams: NavParams, public global : GlobalVariablesProvider, public clasesService : ClasesServiceProvider, public userService : UserServiceProvider) {
     this.lastclases = global.Clases.slice(0,3);
+    this.UpdateEstado(true);
   }
 
   ionViewDidLoad() {  
@@ -80,10 +81,32 @@ export class DashboardPage {
       estado : value ? 1 : 0
     }
     this.userService.updateActivoClase(data).then(() => console.log("Estado Actualizado")).catch( err => console.error(JSON.stringify(err)))
+    if(value){
+      this.locationTracker.startTracking(this.global.CurrentUser.UsuarioId);
+    }else{
+      this.errorAlert();
+    }
   }
 
   calificarClase(clase : any){
     this.navCtrl.push(ClasesDetailPage,{ item: clase, calificar : true });
+  }
+
+  errorAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Hey!',
+      subTitle: '¿Estas seguro que no quieres recibir ninguna solicitud de clase?',
+      buttons: [{
+        text : 'Si estoy seguro',
+        handler : () => this.locationTracker.stopTracking(),
+      },{
+        text : 'No, mejor no',
+        handler : () => {
+          this.estado = true; 
+          this.UpdateEstado(true)},
+      }]
+    });
+    alert.present();
   }
 }
 

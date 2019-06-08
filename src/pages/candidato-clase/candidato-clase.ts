@@ -13,8 +13,6 @@ import { SearchingPage } from '../searching/searching';
 export class CandidatoClasePage {
 
   constructor(private appCtrl: App, public injector: Injector, public navCtrl: NavController, public navParams: NavParams,  public global : GlobalVariablesProvider,  public modalCtrl: ModalController) {
-    setTimeout( () => { this.Aceptar(); }, 25000 )
-  
   }
 
   ionViewDidEnter() { 
@@ -42,6 +40,7 @@ export class CandidatoClasePage {
       .then(() => console.log("Notificacion Enviada"))
       .catch(err => console.error(JSON.stringify(err)))
     })
+    console.log("rechazar 6")
     var solicitar = this.injector.get(SolicitarClaseProvider)
     solicitar.ProfesoresDisponible.pop();
     solicitar.Profesores();

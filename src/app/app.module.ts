@@ -59,8 +59,9 @@ import { NotificationsProvider } from '../providers/notifications/notifications'
 import { SolicitudClasePage } from '../pages/solicitud-clase/solicitud-clase';
 import { CandidatoClasePage } from '../pages/candidato-clase/candidato-clase';
 import { SearchingPage } from '../pages/searching/searching'; 
-import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { ComponentsModule } from '../components/components.module';
+import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 @NgModule({
   declarations: [
@@ -160,6 +161,8 @@ import { ComponentsModule } from '../components/components.module';
     SolicitarClaseProvider,
     FCM,
     NotificationsProvider,
+    LocationTrackerProvider,
+    BackgroundMode,
   ]
 })
 export class AppModule {}

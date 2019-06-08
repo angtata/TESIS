@@ -33,6 +33,7 @@ export class RedesLoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, public globalV : GlobalVariablesProvider,private appCtrl: App,  public clasesService : ClasesServiceProvider,  private secureStorage: SecureStorage) {
     this.userService.getLevelUserList().then( data => {
       this.scholarshipList = data;
+      this.scholarshipList.shift();
     });
   }
 
@@ -64,17 +65,18 @@ export class RedesLoginPage {
       }
     }else{
       this.tipoUser = 1;
+      this.scholarship = 1;
     }
     var data = {
-      nombre : this.name,
-      psw : btoa(password.toString()), 
-      correo : this.email, 
-      telefono : this.celphone, 
-      facebookid : this.facebookid,
-      googleid : this.googleid,
-      tipouser : this.tipoUser,
-      imagen : this.imagen,
-      escolaridad : this.scholarship
+      Nombre : this.name,
+      Contrasena : btoa(password.toString()), 
+      Correo : this.email, 
+      Telefono : this.celphone, 
+      FacebookId : this.facebookid,
+      GoogleId : this.googleid,
+      TipoUsuario : this.tipoUser,
+      Imagen : this.imagen,
+      Escolaridad : this.scholarship
     }
     this.userService.createUserRedes(data).then(() =>{
       this.userService.getUserByEmail(this.email).then(user =>{

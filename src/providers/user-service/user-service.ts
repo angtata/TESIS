@@ -41,9 +41,8 @@ export class UserServiceProvider {
     });
   }
 
-  createUserRedes(data){
+  createUserRedes(params){
     return new Promise((resolve, reject) =>{
-      let params = {Nombre : data.nombre, Contrasena : data.psw, Correo : data.correo, Telefono : data.telefono, FacebookId : data.facebookid, TipoUsuario  : data.tipouser, GoogleId: data.googleid, Imagen : data.imagen, Escolaridad : data.escolaridad}
       this.http.post(`${Configuracion.URL}usuarios/`,params).subscribe( data =>{
         resolve(data);
       }, err =>{ reject(err) })
@@ -99,6 +98,14 @@ export class UserServiceProvider {
         resolve(data.json());
       }, err => { reject(err) })
     })
+  }
+
+  updatePos(params){
+    return new Promise( (resolve, reject) =>{
+      this.http.post( `${Configuracion.URL}usuarios/pos`, params).subscribe(data => { 
+        resolve(data.json());
+      }, err =>{ reject(err) })
+    });
   }
 
 }

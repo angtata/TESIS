@@ -2,7 +2,7 @@ import { UpdatePasswordPage } from './../update-password/update-password';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { RedesLoginPage } from '../redes-login/redes-login';
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams, ModalController, App} from 'ionic-angular';
+import { AlertController, NavController, NavParams, ModalController, App, Platform} from 'ionic-angular';
 import { HomePage } from './../home/home'
 import { RegistroPage } from './../registro/registro';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
@@ -13,6 +13,7 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { EmailProvider } from '../../providers/email-service/email-service';
 import { NotificationsProvider } from '../../providers/notifications/notifications';
 import { SecureStorage, SecureStorageObject } from '@ionic-native/secure-storage';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 
 @Component({
   selector: 'page-login',
@@ -23,7 +24,7 @@ export class LoginPage {
   email : any;
   password : any;
 
-  constructor(private fb: Facebook, public notificatios : NotificationsProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, private alertCtrl: AlertController, public globalV : GlobalVariablesProvider, private appCtrl: App, private googlePlus: GooglePlus, private emailServie : EmailProvider, private secureStorage: SecureStorage) {
+  constructor( private platform: Platform, private geolocation: Geolocation, private fb: Facebook, public notificatios : NotificationsProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService :  UserServiceProvider, private alertCtrl: AlertController, public globalV : GlobalVariablesProvider, private appCtrl: App, private googlePlus: GooglePlus, private emailServie : EmailProvider, private secureStorage: SecureStorage) {
   }
 
   ionViewDidLoad() {

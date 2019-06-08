@@ -18,7 +18,7 @@ export class GlobalVariablesProvider {
   public TempEmail : any;
   public TempPhone : any;
   public TempName : any;
-  public ClaseRechazada  = { user : new Usuario(), rechazar : false};
+  public ClaseRechazada  = { user : new Usuario(), rechazar : null};
   public TempClase = { materia: "", opciones: [], ubicacion: {}, direccion: "", hora: new Date(), user: new Usuario() }
 
   constructor( private imagePicker: ImagePicker, private imageResizer: ImageResizer, private transfer: FileTransfer, private file: File) {

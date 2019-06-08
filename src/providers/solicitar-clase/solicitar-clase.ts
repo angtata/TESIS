@@ -1,4 +1,3 @@
-import { CandidatoClasePage } from './../../pages/candidato-clase/candidato-clase';
 import { Usuario } from './../../models/Usuario';
 import { UserServiceProvider } from './../user-service/user-service';
 import { Injectable, Injector } from '@angular/core';
@@ -40,7 +39,7 @@ export class SolicitarClaseProvider {
         Profes.forEach( element => {
           let profeUbc = new google.maps.LatLng(element.Latitud, element.Latitud)
           let studentUbc =  new google.maps.LatLng(opciones.ubicacion.lat, opciones.ubicacion.lng)
-          let distance = google.maps.geometry.spherical.computeDistanceBetween(studentUbc, profeUbc);
+          let distance = google.maps.geometry.spherical.computeDistanceBetween(profeUbc, studentUbc);
           distancias.push({user: element.UsuarioId, distancia : distance})
         })
         distancias = distancias.sort(function(a,b) { return a.distancia - b.distancia;})
@@ -49,9 +48,35 @@ export class SolicitarClaseProvider {
     })
   }
 
+  SolicitarClaseV(opciones){
+    this.opcionesClase = opciones;
+    this.users.getAllTeachers().then( data => {
+      this.listProfes = <Usuario[]>data;
+      var Profes = this.listProfes.filter( element => {
+        return element.EstadoNombre == 'Activo'
+      })
+      if (opciones.opciones[0].isSelected == true ){
+        Profes = Profes.filter( element => {
+          return element.TipoUsuario == 3 || element.TipoUsuario == 5;
+        })
+      }else{
+        Profes = Profes.filter( element => {
+          return element.TipoUsuario == 2 || element.TipoUsuario == 4;
+        })
+      }
+      var profesList = [];
+      Profes.forEach( element => {
+        profesList.push({user: element.UsuarioId})
+      })
+      this.ProfesoresDisponible = profesList;
+      this.Profesores()
+    })
+  }
+
   Profesores(){
+    console.log(JSON.stringify(this.ProfesoresDisponible))
     if(this.ProfesoresDisponible.length > 0){
-      this.ValidarProfe(this.ProfesoresDisponible[0].user, this.opcionesClase)
+      this.ValidarProfe(this.ProfesoresDisponible[this.ProfesoresDisponible.length -1].user, this.opcionesClase)
     }else{
       this.errorAlert();
     }
@@ -63,9 +88,9 @@ export class SolicitarClaseProvider {
         let token = data[0].FCM_Token
         opciones.hora = new Date();
         notificaciones.sendNotification(token,opciones,{ titulo : "¡Hay una Clase Disponible!" , cuerpo : `¡Acepta dictarle una clase a ${opciones.user.NombreCompleto}!`})
-        .then( () => { this.Rechazar() })
-        .catch(err => console.error(JSON.stringify(err)))
-      }).catch( err => console.error(JSON.stringify(err)))
+        .then( () => { this.RechazarTimeOut(35000); console.log("rechazar 1") })
+        .catch(err => { this.Rechazar(1); console.log("rechazar 2")  })
+      }).catch( err => { this.Rechazar(1); console.log("rechazar 3")  })
   }
 
   random(): number {
@@ -73,11 +98,21 @@ export class SolicitarClaseProvider {
     return rand;       
   }
 
-  Rechazar(){
+  Rechazar(time: number){
     setTimeout( () => { 
       this.ProfesoresDisponible.pop(); 
       this.Profesores();
-    }, 30000 ) 
+    }, time ) 
+  }
+
+  RechazarTimeOut(time: number){
+    setTimeout( () => {
+      if(this.global.ClaseRechazada.rechazar == null){
+        console.log("rechazar 4")
+        this.ProfesoresDisponible.pop(); 
+        this.Profesores();
+      }
+    }, time ) 
   }
 
   errorAlert() {

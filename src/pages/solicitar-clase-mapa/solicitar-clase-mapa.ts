@@ -6,12 +6,7 @@ import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
-  GoogleMapOptions,
-  MyLocation,
-  GoogleMapsAnimation,
-  CameraPosition,
-  MarkerOptions,
-  Marker
+  GoogleMapOptions
 } from '@ionic-native/google-maps';
 import { Observable } from 'rxjs/Observable';
 import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
@@ -184,6 +179,7 @@ export class SolicitarClaseMapaPage {
     this.global.TempClase.user = this.global.CurrentUser;
     this.global.TempClase.ubicacion = this.StudentPos;
     this.global.TempClase.direccion = this.address;
+    this.global.ClaseRechazada.rechazar = null;
     let profileModal = this.modalCtrl.create(SearchingPage, {}, { cssClass: 'select-modal4' });
     profileModal.present();
     this.solicitarClaseService.SolicitarClaseP(this.global.TempClase);

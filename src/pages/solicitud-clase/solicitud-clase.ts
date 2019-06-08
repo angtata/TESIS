@@ -18,7 +18,7 @@ export class SolicitudClasePage {
       return element.isSelected == true;
     })
     this.opcionesClase.shift();
-    setTimeout( () => { this.Rechazar(); }, 25000 )
+    setTimeout( () => { this.navCtrl.pop(); }, 25000 )
   }
 
   ionViewDidLoad() {
@@ -32,7 +32,6 @@ export class SolicitudClasePage {
   }
 
   Rechazar(){
-    this.navCtrl.pop();
     var notificaciones = this.injector.get(NotificationsProvider)
     notificaciones.getTokenUser(this.global.TempClase.user.UsuarioId).then( data  =>{
       let token = data[0].FCM_Token
@@ -40,6 +39,7 @@ export class SolicitudClasePage {
       .then(() => console.log("ok"))
       .catch(err => console.error(JSON.stringify(err)))
     })
+    this.navCtrl.pop();
   }
 
   Aceptar(){

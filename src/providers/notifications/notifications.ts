@@ -65,6 +65,7 @@ export class NotificationsProvider {
 
   recibeNotificacionProfe(value){
     if(value.rechazar == undefined){
+      console.log(JSON.stringify(value));
       this.global.TempClase = value;
       var d1 = new Date(this.global.TempClase.hora)
       var d2 = new Date()

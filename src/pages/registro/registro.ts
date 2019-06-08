@@ -1,7 +1,7 @@
 import { HomePage } from './../home/home';
 import { Usuario } from './../../models/Usuario';
 import { GlobalVariablesProvider } from './../../providers/global-variables/global-variables';
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, App, ModalController, LoadingController, ToastController } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Country } from './registro.model';

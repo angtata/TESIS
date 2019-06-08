@@ -12,11 +12,13 @@ import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any;
   tipoIngreso: boolean = false;
+  
 
   constructor(public notificaciones: NotificationsProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private secureStorage: SecureStorage, private global : GlobalVariablesProvider, public modalCtrl: ModalController) {
     this.initializeApp();
@@ -48,6 +50,5 @@ export class MyApp {
       })
     });
   }
-
   
 }
