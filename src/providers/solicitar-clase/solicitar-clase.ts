@@ -24,7 +24,10 @@ export class SolicitarClaseProvider {
       this.users.getAllTeachers().then( data => {
         this.listProfes = <Usuario[]>data;
         var Profes = this.listProfes.filter( element => {
-          return element.EstadoNombre == 'Activo'
+          return element.EstadoNombre == 'Activo';
+        })
+        Profes = Profes.filter( element => {
+          return element.UsuarioId != this.global.CurrentUser.UsuarioId;
         })
         if (opciones.opciones[0].isSelected == true ){
           Profes = Profes.filter( element => {
@@ -54,6 +57,9 @@ export class SolicitarClaseProvider {
       this.listProfes = <Usuario[]>data;
       var Profes = this.listProfes.filter( element => {
         return element.EstadoNombre == 'Activo'
+      })
+      Profes = Profes.filter( element => {
+        return element.UsuarioId != this.global.CurrentUser.UsuarioId;
       })
       if (opciones.opciones[0].isSelected == true ){
         Profes = Profes.filter( element => {

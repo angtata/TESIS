@@ -4,7 +4,7 @@ page-dashboard {
     }
 
     ion-toggle{
-      background-color: #FFD347;
+      background-color: #FFD347 !important;
     }
 
     .imageUser{
@@ -32,6 +32,7 @@ page-dashboard {
       overflow: visible;
       position: relative;
       top : 15px;
+      left: -15px;
       .subtitle {
         position: absolute;
         margin-top: 2px;
@@ -40,9 +41,11 @@ page-dashboard {
     }
   
     .rating{
-      margin-top: 0px;
+      margin-left: -45px !important;
+      margin-top: 17px !important;
     }
     .rating li {
+      margin-right: 0px !important;
       padding: 0px 0px !important;
       background: none;
       ion-icon {

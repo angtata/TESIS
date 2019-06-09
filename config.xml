@@ -3,7 +3,7 @@
     <name>ClaseYA</name>
     <description>Aplicacion de Clases al Instante</description>
     <author email="angtatpp@gmail.com" href="http://ionicframework.com/">Tatiana Pena y Dario Fernandez</author>
-    <content original-src="index.html" src="http://192.168.1.6:8100" />
+    <content original-src="index.html" src="http://192.168.1.6:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -120,4 +120,5 @@
     <plugin name="cordova-plugin-geolocation" spec="https://github.com/chemerisuk/cordova-plugin-geolocation.git" />
     <plugin name="cordova-support-android-plugin" spec="~1.0.1" />
     <engine name="android" spec="~6.1.2" />
+    <allow-navigation href="http://192.168.1.6:8101" />
 </widget>

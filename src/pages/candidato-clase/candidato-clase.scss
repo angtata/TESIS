@@ -7,6 +7,10 @@ page-candidato-clase {
         background-image: url("../assets/imgs/trianglify.svg");
         background-repeat: no-repeat;
         background-size: 400px 300px;
+        h1{
+            word-wrap: break-word !important;
+            white-space: normal !important;
+        }
     }
 
     ion-card-content{
