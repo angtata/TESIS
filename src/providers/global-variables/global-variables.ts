@@ -13,6 +13,7 @@ export class GlobalVariablesProvider {
 
   public TipoIngeso : boolean;
   public CurrentUser : Usuario;
+  public CurrentClase : Clase;
   public Clases : Clase[];
   public SelectedMaterias: any;
   public TempEmail : any;
@@ -20,6 +21,7 @@ export class GlobalVariablesProvider {
   public TempName : any;
   public ClaseRechazada  = { user : new Usuario(), rechazar : null};
   public TempClase = { materia: "", opciones: [], ubicacion: {}, direccion: "", hora: new Date(), user: new Usuario() }
+  
 
   constructor( private imagePicker: ImagePicker, private imageResizer: ImageResizer, private transfer: FileTransfer, private file: File) {
     console.log('Hello GlobalVariablesProvider Provider');

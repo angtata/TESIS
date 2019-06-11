@@ -51,7 +51,7 @@ import { SecureStorage } from '@ionic-native/secure-storage';
 import { CardModule } from 'ngx-card/ngx-card';
 import { MateriasEstudiantePage } from '../pages/materias-estudiante/materias-estudiante';
 import { Geolocation } from '@ionic-native/geolocation';
-import { GoogleMaps } from "@ionic-native/google-maps";
+import { GoogleMaps , Geocoder } from "@ionic-native/google-maps";
 import { MapServiceProvider } from '../providers/map-service/map-service';
 import { SolicitarClaseProvider } from '../providers/solicitar-clase/solicitar-clase';
 import { FCM } from '@ionic-native/fcm';
@@ -62,6 +62,7 @@ import { SearchingPage } from '../pages/searching/searching';
 import { ComponentsModule } from '../components/components.module';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { MatchPage } from '../pages/match/match';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     SolicitudClasePage,
     CandidatoClasePage,
     SearchingPage,
+    MatchPage,
   ],
   imports: [ 
     BrowserModule,  
@@ -129,6 +131,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     MateriasEstudiantePage,
     SolicitudClasePage,
     CandidatoClasePage,
+    MatchPage,
     SearchingPage,
   ],
   providers: [
@@ -157,6 +160,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     SecureStorage,
     Geolocation,
     GoogleMaps,
+    Geocoder,
     MapServiceProvider,
     SolicitarClaseProvider,
     FCM,

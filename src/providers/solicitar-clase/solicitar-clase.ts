@@ -1,6 +1,6 @@
 import { Usuario } from './../../models/Usuario';
 import { UserServiceProvider } from './../user-service/user-service';
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { NotificationsProvider } from '../notifications/notifications';
 import { GlobalVariablesProvider } from '../global-variables/global-variables';
 import { ModalController, AlertController } from 'ionic-angular';
@@ -15,7 +15,7 @@ export class SolicitarClaseProvider {
   listProfes : Usuario[];
   ProfesoresDisponible : any[] = [];
 
-  constructor(public injector: Injector, public users: UserServiceProvider, public global : GlobalVariablesProvider, public modalCtrl: ModalController, private alertCtrl: AlertController) {
+  constructor(public notificaciones: NotificationsProvider, public users: UserServiceProvider, public global : GlobalVariablesProvider, public modalCtrl: ModalController, private alertCtrl: AlertController) {
     console.log('Hello SolicitarClaseProvider Provider');
   }
 
@@ -89,11 +89,10 @@ export class SolicitarClaseProvider {
   }
 
   ValidarProfe(user, opciones){
-      var notificaciones = this.injector.get(NotificationsProvider)
-      notificaciones.getTokenUser(user).then( data => {
+      this.notificaciones.getTokenUser(user).then( data => {
         let token = data[0].FCM_Token
         opciones.hora = new Date();
-        notificaciones.sendNotification(token,opciones,{ titulo : "¡Hay una Clase Disponible!" , cuerpo : `¡Acepta dictarle una clase a ${opciones.user.NombreCompleto}!`})
+        this.notificaciones.sendNotification(token,opciones,{ titulo : "¡Hay una Clase Disponible!" , cuerpo : `¡Acepta dictarle una clase a ${opciones.user.NombreCompleto}!`})
         .then( () => { this.RechazarTimeOut(35000); console.log("rechazar 1") })
         .catch(err => { this.Rechazar(1); console.log("rechazar 2")  })
       }).catch( err => { this.Rechazar(1); console.log("rechazar 3")  })

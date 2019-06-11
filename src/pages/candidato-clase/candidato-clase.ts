@@ -1,10 +1,10 @@
+import { Clase } from './../../models/Clase';
+import { ClasesServiceProvider } from './../../providers/clases-service/clases-service';
 import { SolicitarClaseProvider } from './../../providers/solicitar-clase/solicitar-clase';
-import { Component, Injector } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, App, ModalController } from 'ionic-angular';
 import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
-import { MenuPage } from '../menu/menu';
 import { NotificationsProvider } from '../../providers/notifications/notifications';
-import { SearchingPage } from '../searching/searching';
 
 @Component({
   selector: 'page-candidato-clase',
@@ -12,7 +12,7 @@ import { SearchingPage } from '../searching/searching';
 })
 export class CandidatoClasePage {
 
-  constructor(private appCtrl: App, public injector: Injector, public navCtrl: NavController, public navParams: NavParams,  public global : GlobalVariablesProvider,  public modalCtrl: ModalController) {
+  constructor(private appCtrl: App, public solicitar : SolicitarClaseProvider, public notificaciones: NotificationsProvider, public navCtrl: NavController, public navParams: NavParams,  public global : GlobalVariablesProvider,  public modalCtrl: ModalController, public clasesServices : ClasesServiceProvider) {
   }
 
   ionViewDidEnter() { 
@@ -22,36 +22,53 @@ export class CandidatoClasePage {
 
   Rechazar(){
     this.navCtrl.pop();
-    var notificaciones = this.injector.get(NotificationsProvider)
-    notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
+    this.notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
       let token = data[0].FCM_Token
-      notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : true},{ titulo : "" , cuerpo : ""})
+      this.notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : true},{ titulo : "" , cuerpo : ""})
       .then(() => console.log("Notificacion Enviada"))
       .catch(err => console.error(JSON.stringify(err)))
     })
+    console.log("rechazar 7")
   }
 
   Seguir(){
     this.navCtrl.pop();
-    var notificaciones = this.injector.get(NotificationsProvider)
-    notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
+    this.notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
       let token = data[0].FCM_Token
-      notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : true},{ titulo : "" , cuerpo : ""})
+      this.notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : true},{ titulo : "" , cuerpo : ""})
       .then(() => console.log("Notificacion Enviada"))
       .catch(err => console.error(JSON.stringify(err)))
     })
     console.log("rechazar 6")
-    var solicitar = this.injector.get(SolicitarClaseProvider)
-    solicitar.ProfesoresDisponible.pop();
-    solicitar.Profesores();
+    this.solicitar.ProfesoresDisponible.pop();
+    this.solicitar.Profesores();
   }
 
   Aceptar(){
     this.navCtrl.pop();
-    var notificaciones = this.injector.get(NotificationsProvider)
-    notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
+    var fecha = new Date();
+    fecha.setHours( fecha.getHours() - 5 );
+    var clase = {
+      Profesor : this.global.ClaseRechazada.user.UsuarioId, 
+      Estudiante : this.global.CurrentUser.UsuarioId, 
+      MateriaId : this.global.TempClase.materia['MateriaId'],
+      TipoClase : this.global.TempClase.opciones[2].isSelected == true ? 0 : 1, 
+      Direccion : this.global.TempClase.direccion, 
+      Latitud : this.global.TempClase.ubicacion['lat'], 
+      Longitud : this.global.TempClase.ubicacion['lng'],
+      FechaHora : fecha
+    }
+    this.clasesServices.createClase(clase)
+      .then( () => {
+        this.clasesServices.getClasesListByStudent(this.global.CurrentUser.UsuarioId).then( clases => {
+          this.global.CurrentClase  = <Clase>clases[0];
+        })
+      })
+      .catch( err => console.log(JSON.stringify(err)))
+
+      this.notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
       let token = data[0].FCM_Token
-      notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : false},{ titulo : "" , cuerpo : ""})
+      this.notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : false},{ titulo : "" , cuerpo : ""})
       .then(() => console.log("ok"))
       .catch(err => console.error(JSON.stringify(err)))
     })

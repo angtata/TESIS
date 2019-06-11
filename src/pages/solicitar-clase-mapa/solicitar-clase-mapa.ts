@@ -6,7 +6,10 @@ import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
-  GoogleMapOptions
+  GoogleMapOptions,
+  GeocoderResult,
+  Geocoder,
+  GeocoderRequest
 } from '@ionic-native/google-maps';
 import { Observable } from 'rxjs/Observable';
 import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
@@ -175,14 +178,35 @@ export class SolicitarClaseMapaPage {
     );
   }
 
+  doGeocode(){
+    return new Promise((resolve, reject) => {
+      if(this.address == undefined){
+        let request: GeocoderRequest = { position: this.StudentPos };
+        Geocoder.geocode(request)
+        .then( results => {
+          this.address = [
+            (results[0].thoroughfare || "") + " " + (results[0].subThoroughfare || ""),
+            results[0].locality
+          ].join(", ");
+          resolve()
+        }).catch( err => reject(err));
+      }else{
+        resolve();
+      }
+    })
+    
+  }
+
   Solicitar(){
-    this.global.TempClase.user = this.global.CurrentUser;
-    this.global.TempClase.ubicacion = this.StudentPos;
-    this.global.TempClase.direccion = this.address;
-    this.global.ClaseRechazada.rechazar = null;
-    let profileModal = this.modalCtrl.create(SearchingPage, {}, { cssClass: 'select-modal4' });
-    profileModal.present();
-    this.solicitarClaseService.SolicitarClaseP(this.global.TempClase);
+    this.doGeocode().then( () =>{
+      this.global.TempClase.user = this.global.CurrentUser;
+      this.global.TempClase.ubicacion = this.StudentPos;
+      this.global.TempClase.direccion = this.address; 
+      this.global.ClaseRechazada.rechazar = null;
+      let profileModal = this.modalCtrl.create(SearchingPage, {}, { cssClass: 'select-modal4' });
+      profileModal.present();
+      this.solicitarClaseService.SolicitarClaseP(this.global.TempClase);
+    })
   }
 
 }

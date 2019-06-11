@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.claseya.com" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.claseya.com" version="0.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>ClaseYA</name>
     <description>Aplicacion de Clases al Instante</description>
     <author email="angtatpp@gmail.com" href="http://ionicframework.com/">Tatiana Pena y Dario Fernandez</author>
@@ -115,10 +115,11 @@
     </plugin>
     <plugin name="cordova-plugin-fcm" spec="~2.1.2" />
     <plugin name="cordova-plugin-background-mode" spec="~0.7.2" />
-    <allow-navigation href="http://192.168.1.67:8100" />
-    <allow-navigation href="http://192.168.1.6:8100" />
     <plugin name="cordova-plugin-geolocation" spec="https://github.com/chemerisuk/cordova-plugin-geolocation.git" />
     <plugin name="cordova-support-android-plugin" spec="~1.0.1" />
     <engine name="android" spec="~6.1.2" />
+    <allow-navigation href="http://192.168.1.6:8100" />
+    <allow-navigation href="http://192.168.1.67:8100" />
+    <allow-navigation href="http://192.168.1.67:8101" />
     <allow-navigation href="http://192.168.1.6:8101" />
 </widget>

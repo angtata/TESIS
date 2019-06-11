@@ -18,6 +18,14 @@ export class ClasesServiceProvider {
     });
   }
 
+  createClase(params){
+    return new Promise((resolve, reject) => {
+      this.http.post(`${Configuracion.URL}clases`, params).subscribe( data =>{
+        resolve(data.json());
+      }, err =>{ reject(err) })
+    });
+  }
+
   getClasesListByTeacher(teacher : string){
     return new Promise((resolve, reject) => {
       this.http.get(`${Configuracion.URL}clases/profesor/${teacher}`).subscribe( data =>{
