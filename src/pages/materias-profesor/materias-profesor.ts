@@ -115,7 +115,7 @@ export class MateriasProfesorPage {
   sendEmail(data){
     let send = {
       subject : "Adicionar Materia",
-      body : `Materia : ${data.Materia} , Area : ${data.Area}, Nombre : ${this.global.TempName != null ? this.global.TempName : this.global.CurrentUser.NombreCompleto}, Correo : ${this.global.TempEmail != null ? this.global.TempEmail : this.global.CurrentUser.Correo}, Telefono : ${this.global.TempPhone != null ? this.global.TempPhone : this.global.CurrentUser.Telefono}`
+      body : `Materia : ${data.Materia} , Area : ${data.Area}, Nombre : ${this.global.TempUser.Name != null ? this.global.TempUser.Name : this.global.CurrentUser.NombreCompleto}, Correo : ${this.global.TempUser.Email != null ? this.global.TempUser.Email : this.global.CurrentUser.Correo}, Telefono : ${this.global.TempUser.Phone != null ? this.global.TempUser.Phone : this.global.CurrentUser.Telefono}`
     }
     this.email.sendAddMateria(send)
     .then(() =>{this.confirmationAlert()})

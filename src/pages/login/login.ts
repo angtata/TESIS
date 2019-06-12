@@ -84,18 +84,13 @@ export class LoginPage {
             .catch(err => { console.error(JSON.stringify(err)); console.log("Awww :(")})
         })
         this.notificatios.getToken(this.globalV.CurrentUser.UsuarioId);
-        this.globalV.downloadFile(this.globalV.CurrentUser.Correo).then( file => {
-          this.globalV.CurrentUser.Imagen = String(file) + '?' + this.random();
-          if(this.globalV.CurrentUser.TipoUsuario == 4 || this.globalV.CurrentUser.TipoUsuario == 5){
-            let profileModal = this.modalCtrl.create(HomePage, {}, {cssClass: 'select-modal' });
-            profileModal.present();
-          }else{
-            this.globalV.TipoIngeso = this.globalV.CurrentUser.TipoUsuario == 1 ? true : false;
-            this.appCtrl.getRootNavs()[0].setRoot(MenuPage);
-          }
-        }).catch( e => {
-          this.errorAlert();
-        })
+        if(this.globalV.CurrentUser.TipoUsuario == 4 || this.globalV.CurrentUser.TipoUsuario == 5){
+          let profileModal = this.modalCtrl.create(HomePage, {}, {cssClass: 'select-modal' });
+          profileModal.present();
+        }else{
+          this.globalV.TipoIngeso = this.globalV.CurrentUser.TipoUsuario == 1 ? true : false;
+          this.appCtrl.getRootNavs()[0].setRoot(MenuPage);
+        }
         
       }else{
         let redesModal = this.modalCtrl.create(RedesLoginPage, 
@@ -206,9 +201,6 @@ export class LoginPage {
     alert.present();
   }
 
-  random(): number {
-    let rand = Math.floor(Math.random()*20000000)+1000000;
-    return rand;       
-  }
+  
 
 }

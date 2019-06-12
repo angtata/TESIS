@@ -99,9 +99,6 @@ export class MyApp {
         this.global.TempClase.user.Imagen = String(file) + '?' + this.random();
         let profileModal = this.modalCtrl.create(CandidatoClasePage, {}, { cssClass: 'select-modal3' });
         profileModal.present();
-        profileModal.onDidDismiss((result) => {
-          
-        });
       })
     }
   }

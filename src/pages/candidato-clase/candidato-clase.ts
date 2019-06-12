@@ -22,23 +22,17 @@ export class CandidatoClasePage {
 
   Rechazar(){
     this.navCtrl.pop();
-    this.notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
-      let token = data[0].FCM_Token
-      this.notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : true},{ titulo : "" , cuerpo : ""})
-      .then(() => console.log("Notificacion Enviada"))
-      .catch(err => console.error(JSON.stringify(err)))
-    })
+    var UsuarioId = this.global.ClaseRechazada.user.UsuarioId;
+    this.global.ClaseRechazada = { user : this.global.CurrentUser, rechazar : true}
+    this.Notificar(UsuarioId);
     console.log("rechazar 7")
   }
 
   Seguir(){
     this.navCtrl.pop();
-    this.notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
-      let token = data[0].FCM_Token
-      this.notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : true},{ titulo : "" , cuerpo : ""})
-      .then(() => console.log("Notificacion Enviada"))
-      .catch(err => console.error(JSON.stringify(err)))
-    })
+    var UsuarioId = this.global.ClaseRechazada.user.UsuarioId;
+    this.global.ClaseRechazada = { user : this.global.CurrentUser, rechazar : true}
+    this.Notificar(UsuarioId);
     console.log("rechazar 6")
     this.solicitar.ProfesoresDisponible.pop();
     this.solicitar.Profesores();
@@ -60,18 +54,24 @@ export class CandidatoClasePage {
     }
     this.clasesServices.createClase(clase)
       .then( () => {
-        this.clasesServices.getClasesListByStudent(this.global.CurrentUser.UsuarioId).then( clases => {
-          this.global.CurrentClase  = <Clase>clases[0];
-        })
+        this.clasesServices.getClasesListByStudent(this.global.CurrentUser.UsuarioId)
+        .then( clases => {this.global.CurrentClase  = <Clase>clases[0]})
+        .catch( err => console.log(JSON.stringify(err)) )
       })
       .catch( err => console.log(JSON.stringify(err)))
+    var UsuarioId = this.global.ClaseRechazada.user.UsuarioId
+    this.global.ClaseRechazada = { user : this.global.CurrentUser, rechazar : false}
+    this.Notificar(UsuarioId)
+      
+  }
 
-      this.notificaciones.getTokenUser(this.global.ClaseRechazada.user.UsuarioId).then( data  =>{
+  Notificar(UsuarioId : string){
+    this.notificaciones.getTokenUser(UsuarioId).then( data  =>{
       let token = data[0].FCM_Token
-      this.notificaciones.sendNotification(token,{ user : this.global.CurrentUser, rechazar : false},{ titulo : "" , cuerpo : ""})
-      .then(() => console.log("ok"))
+      this.notificaciones.sendNotification(token, this.global.ClaseRechazada ,{ titulo : "" , cuerpo : ""})
+      .then(() => console.log("Notificacion Enviada"))
       .catch(err => console.error(JSON.stringify(err)))
-    })
+      })
   }
 
 }

@@ -206,7 +206,7 @@ export class SolicitarClaseMapaPage {
       let profileModal = this.modalCtrl.create(SearchingPage, {}, { cssClass: 'select-modal4' });
       profileModal.present();
       this.solicitarClaseService.SolicitarClaseP(this.global.TempClase);
-    })
+    });
   }
 
 }

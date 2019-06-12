@@ -16,9 +16,7 @@ export class GlobalVariablesProvider {
   public CurrentClase : Clase;
   public Clases : Clase[];
   public SelectedMaterias: any;
-  public TempEmail : any;
-  public TempPhone : any;
-  public TempName : any;
+  public TempUser = { Name : "", Phone : "", Email : ""};
   public ClaseRechazada  = { user : new Usuario(), rechazar : null};
   public TempClase = { materia: "", opciones: [], ubicacion: {}, direccion: "", hora: new Date(), user: new Usuario() }
   
@@ -75,7 +73,7 @@ export class GlobalVariablesProvider {
       var encode = btoa(imageFileName)
       let url = encodeURI(`${Configuracion.URL}download/${encode}`); 
       const fileTransfer: FileTransferObject = this.transfer.create();
-      fileTransfer.download(url, this.file.externalDataDirectory + 'profile', true, {create: false} )
+      fileTransfer.download(url, this.file.externalDataDirectory + 'profile' + encode, true, {create: false} )
       .then((entry) => {resolve(entry.toInternalURL())})
       .catch(err => {reject(err)}) 
     })

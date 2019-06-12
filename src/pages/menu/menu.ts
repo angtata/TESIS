@@ -33,7 +33,10 @@ export class MenuPage {
 
   ionViewDidEnter(){
     if(this.global.TipoIngeso || this.global.CurrentUser.TipoUsuario == 1){
-      this.global.TipoIngeso = true;    
+      this.global.TipoIngeso = true;   
+      this.global.downloadFile(this.global.CurrentUser.Correo).then( file => {
+        this.global.CurrentUser.Imagen = String(file) + '?' + this.random(); })
+        .catch(()=>{ this.global.CurrentUser.Imagen = "assets/imgs/User.png"})
       this.clasesService.getClasesListByStudent(this.global.CurrentUser.UsuarioId)
       .then( data =>{ 
         this.global.Clases = <Clase[]> data;
@@ -47,7 +50,10 @@ export class MenuPage {
       }).catch( err => { console.log(JSON.stringify(err))})
       
     }else{
-      this.global.TipoIngeso = false;    
+      this.global.TipoIngeso = false;  
+      this.global.downloadFile(this.global.CurrentUser.Correo).then( file => {
+        this.global.CurrentUser.Imagen = String(file) + '?' + this.random(); }) 
+        .catch(()=>{ this.global.CurrentUser.Imagen = "assets/imgs/User.png"})
       this.clasesService.getClasesListByTeacher(this.global.CurrentUser.UsuarioId)
       .then( data =>{ 
         this.global.Clases = <Clase[]> data;
@@ -121,6 +127,11 @@ export class MenuPage {
      .then( data => console.log(data))
      .catch(error => console.log(error))
     })
+  }
+
+  random(): number {
+    let rand = Math.floor(Math.random()*20000000)+1000000;
+    return rand;       
   }
 
 }

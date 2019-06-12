@@ -115,9 +115,9 @@ export class ProfilePage {
     var email = this.validations_form.value['email']
     var number = this.validations_form.value['country_phone']
     var name = this.validations_form.value['nombre']
-    this.global.TempEmail = email;
-    this.global.TempPhone = number.phone;
-    this.global.TempName = name;
+    this.global.TempUser.Email = email;
+    this.global.TempUser.Phone = number.phone;
+    this.global.TempUser.Name = name;
     this.navCtrl.push(MateriasProfesorPage, { item:false });
   }
 
