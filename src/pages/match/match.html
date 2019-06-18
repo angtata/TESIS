@@ -1,21 +1,21 @@
-<ion-header >
+<ion-header>
   <ion-navbar color="primary">
-      <ion-title *ngIf="global.TipoIngeso">Perfil Profesor</ion-title>
       <ion-title *ngIf="!global.TipoIngeso" >Perfil Estudiante</ion-title>
+      <ion-title *ngIf="global.TipoIngeso" >Perfil Profesor</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-<ion-card>
+  <ion-card *ngIf="global.TipoIngeso">
   <ion-card-title>
   </ion-card-title>
   <ion-card-content>
       <div class="imageUser">
-          <img alt="Image" [src]="global.CurrentUser.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+        <img alt="Image" [src]="global.CurrentClase.Profesor.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
       </div> 
       <div class="title">
-        <p>{{global.CurrentUser.NombreCompleto}}</p>
-        <rating [(ngModel)]="global.CurrentUser.Calificacion" 
+        <p>{{global.CurrentClase.Profesor.NombreCompleto}}</p>
+        <rating [(ngModel)]="global.CurrentClase.Profesor.Calificacion" 
           readOnly="true" 
           max="5"
           emptyStarIconName="custom-clear-star" 
@@ -24,41 +24,53 @@
           nullable="false">
         </rating>
       </div>
-      <!--
-      <form class="form" [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">  
-          <ion-item>
-              <ion-label floating color="text">Nombre Completo</ion-label>
-              <ion-input type="text" formControlName="nombre"></ion-input>
-          </ion-item>
-          <div formGroupName="country_phone">
-            <ion-item>
-              <ion-label floating color="text">Celular</ion-label>
-              <ion-input [textMask]="{mask: validations_form.value.country_phone.country.phone_mask}" type="number" formControlName="phone"></ion-input>
-            </ion-item>
-            <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.phone">
-                <div class="error-message" *ngIf="validations_form.get('country_phone').get('phone').hasError(validation.type) && (validations_form.get('country_phone').get('phone').dirty || validations_form.get('country_phone').get('phone').touched)">
-                  {{ validation.message }}
-                </div>
-              </ng-container>
-            </div>
-          </div>
-          <ion-item *ngIf="global.TipoIngeso == false">
-            <ion-label floating color="text">Escolaridad: </ion-label>
-            <ion-select formControlName="scholarship" cancelText="Cancelar" okText="Seleccionar">
-                <ion-option *ngFor="let scholar of scholarshipList" [value]="scholar.EscolaridadId">{{scholar.Descripcion}}</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item *ngIf="global.TipoIngeso == false ">
-            <button ion-button clear icon-end type="button" color="text" (click)="AddMateria()">
-                Agregrar Materia:
-                <ion-icon color="secondary" name="create" ></ion-icon>
-            </button>
-            <ion-tags-input [readonly]="true" [color]="'#E94F53'" [placeholder]="'Materias'" formControlName="materias" ></ion-tags-input>
-          </ion-item>
-          <button class="SubmitButton" ion-button color="secondary" type="submit" [disabled]="!validations_form.valid">Actualizar</button>
-      </form>
-      -->
+        <ion-item>
+          <ion-label floating color="text">Celular</ion-label>
+          <ion-input readonly type="number" [(ngModel)]="global.CurrentClase.Profesor.Telefono"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating color="text">Correo Electrónico</ion-label>
+          <ion-input readonly type="text" [(ngModel)]="global.CurrentClase.Profesor.Correo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-tags-input [readonly]="true" [color]="'#E94F53'" [placeholder]="'Materias'" [(ngModel)]="materias" ></ion-tags-input>
+        </ion-item>
+        <a class="Button" ion-button color="primary" href="https://api.whatsapp.com/send?phone=+57{{global.CurrentClase.Profesor.Telefono}}">CHATEAR</a>
+        <button class="Button" ion-button color="primary">Ubicación</button>
+        <a class="Button" ion-button color="primary" href="tel:{{global.CurrentClase.Profesor.Telefono}}">LLAMAR</a>
+
   </ion-card-content>
-</ion-card>
+  </ion-card>
+
+  <ion-card *ngIf="!global.TipoIngeso">
+    <ion-card-title>
+    </ion-card-title>
+    <ion-card-content>
+        <div class="imageUser">
+          <img alt="Image" [src]="global.CurrentClase.Estudiante.Imagen | sanitizeUrl"  onError="this.src='assets/imgs/User.png'"/>
+        </div> 
+        <div class="title">
+          <p>{{global.CurrentClase.Estudiante.NombreCompleto}}</p>
+          <rating [(ngModel)]="global.CurrentClase.Estudiante.Calificacion" 
+            readOnly="true" 
+            max="5"
+            emptyStarIconName="custom-clear-star" 
+            halfStarIconName="custom-half-star" 
+            starIconName="custom-star" 
+            nullable="false">
+          </rating>
+        </div>
+          <ion-item>
+            <ion-label floating color="text">Celular</ion-label>
+            <ion-input readonly type="number" [(ngModel)]="global.CurrentClase.Estudiante.Telefono"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating color="text">Correo Electrónico</ion-label>
+            <ion-input readonly type="text" [(ngModel)]="global.CurrentClase.Estudiante.Correo"></ion-input>
+          </ion-item>
+          <a class="Button" ion-button color="secondary" href="https://api.whatsapp.com/send?phone=+57{{global.CurrentClase.Estudiante.Telefono}}">CHATEAR</a>
+          <button class="Button" ion-button color="secondary">Ubicación</button>
+          <a class="Button" ion-button color="secondary" href="tel:{{global.CurrentClase.Estudiante.Telefono}}">LLAMAR</a>
+        </ion-card-content>
+  </ion-card>
 </ion-content>

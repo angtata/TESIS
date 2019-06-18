@@ -63,6 +63,7 @@ import { ComponentsModule } from '../components/components.module';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { MatchPage } from '../pages/match/match';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @NgModule({
   declarations: [
@@ -167,6 +168,7 @@ import { MatchPage } from '../pages/match/match';
     NotificationsProvider,
     LocationTrackerProvider,
     BackgroundMode,
+    InAppBrowser,
   ]
 })
 export class AppModule {}

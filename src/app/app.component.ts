@@ -1,7 +1,8 @@
+import { MatchPage } from './../pages/match/match';
 import { MenuPage } from './../pages/menu/menu';
 import { GlobalVariablesProvider } from './../providers/global-variables/global-variables';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, ModalController, AlertController, App } from 'ionic-angular';
+import { Nav, Platform, ModalController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from './../pages/login/login';
@@ -11,6 +12,10 @@ import { FCM } from '@ionic-native/fcm';
 import { SolicitudClasePage } from '../pages/solicitud-clase/solicitud-clase';
 import { SolicitarClaseProvider } from '../providers/solicitar-clase/solicitar-clase';
 import { CandidatoClasePage } from '../pages/candidato-clase/candidato-clase';
+import { ClasesServiceProvider } from '../providers/clases-service/clases-service';
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { Clase } from '../models/Clase';
+import { Usuario } from '../models/Usuario';
 
 
 @Component({
@@ -24,7 +29,7 @@ export class MyApp {
   tipoIngreso: boolean = false;
   
 
-  constructor(private appCtrl : App, private fcm: FCM, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private secureStorage: SecureStorage, private global : GlobalVariablesProvider, public modalCtrl: ModalController, private solicitarClase : SolicitarClaseProvider, private alertCtrl: AlertController) {
+  constructor(private fcm: FCM, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private secureStorage: SecureStorage, private global : GlobalVariablesProvider, public modalCtrl: ModalController, private solicitarClase : SolicitarClaseProvider, private alertCtrl: AlertController, private clasesServices : ClasesServiceProvider, private userService : UserServiceProvider) {
     this.initializeApp();
   }
 
@@ -38,14 +43,17 @@ export class MyApp {
       this.secureStorage.create('login').then((storage: SecureStorageObject) =>{
         storage.get('user')
           .then( data => {
-            console.log("storage!!"); 
             this.global.CurrentUser = JSON.parse(data); 
-            if(this.global.CurrentUser.TipoUsuario == 4 || this.global.CurrentUser.TipoUsuario == 5){
-              this.rootPage = LoginPage;
-              let profileModal = this.modalCtrl.create(HomePage, {}, {cssClass: 'select-modal' });
-              profileModal.present();
+            if( JSON.stringify(this.global.CurrentClase) == null){
+              if(this.global.CurrentUser.TipoUsuario == 4 || this.global.CurrentUser.TipoUsuario == 5){
+                this.rootPage = LoginPage;
+                let profileModal = this.modalCtrl.create(HomePage, {}, {cssClass: 'select-modal' });
+                profileModal.present();
+              }else{
+                this.global.TipoIngeso = this.global.CurrentUser.TipoUsuario == 1 ? true : false;
+                this.rootPage = MenuPage; 
+              }
             }else{
-              this.global.TipoIngeso = this.global.CurrentUser.TipoUsuario == 1 ? true : false;
               this.rootPage = MenuPage; 
             }
             
@@ -84,7 +92,7 @@ export class MyApp {
       if(this.global.ClaseRechazada.rechazar){
         this.errorAlert();
       }else{
-        console.log("match realizado!")
+        this.Match();
       }
     }
   }
@@ -99,6 +107,10 @@ export class MyApp {
         this.global.TempClase.user.Imagen = String(file) + '?' + this.random();
         let profileModal = this.modalCtrl.create(CandidatoClasePage, {}, { cssClass: 'select-modal3' });
         profileModal.present();
+        profileModal.onWillDismiss( data => {
+          this.nav.setRoot(MyApp);
+          this.nav.popToRoot();
+        })
       })
     }
   }
@@ -115,6 +127,21 @@ export class MyApp {
       buttons: ['Aceptar']
     });
     alert.present();
+  }
+
+  Match(){
+    this.clasesServices.getClasesListByTeacher(this.global.CurrentUser.UsuarioId)
+    .then( clases => { 
+      this.global.CurrentClase  = <Clase>clases[0]; 
+      this.userService.getUserById(this.global.CurrentClase.Estudiante).then( profe => {
+        this.global.CurrentClase.Estudiante = <Usuario>profe[0];
+        this.global.CurrentClase.Profesor = this.global.CurrentUser;
+        this.nav.push(MatchPage)
+        this.global.downloadFile(this.global.CurrentClase.Estudiante.Correo).then( url => {
+          this.global.CurrentClase.Estudiante.Imagen = String(url);
+        }).catch(()=>{ this.global.CurrentClase.Estudiante.Imagen = "assets/imgs/User.png"});
+      }).catch( err => { console.log(JSON.stringify(err))})
+    }).catch( err => console.log(JSON.stringify(err)) )
   }
   
 }

@@ -1,3 +1,4 @@
+import { UserServiceProvider } from './../../providers/user-service/user-service';
 import { Clase } from './../../models/Clase';
 import { ClasesServiceProvider } from './../../providers/clases-service/clases-service';
 import { SolicitarClaseProvider } from './../../providers/solicitar-clase/solicitar-clase';
@@ -5,6 +6,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, App, ModalController } from 'ionic-angular';
 import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
 import { NotificationsProvider } from '../../providers/notifications/notifications';
+import { Usuario } from '../../models/Usuario';
 
 @Component({
   selector: 'page-candidato-clase',
@@ -12,7 +14,7 @@ import { NotificationsProvider } from '../../providers/notifications/notificatio
 })
 export class CandidatoClasePage {
 
-  constructor(private appCtrl: App, public solicitar : SolicitarClaseProvider, public notificaciones: NotificationsProvider, public navCtrl: NavController, public navParams: NavParams,  public global : GlobalVariablesProvider,  public modalCtrl: ModalController, public clasesServices : ClasesServiceProvider) {
+  constructor(private appCtrl: App, public solicitar : SolicitarClaseProvider, public notificaciones: NotificationsProvider, public navCtrl: NavController, public navParams: NavParams,  public global : GlobalVariablesProvider,  public modalCtrl: ModalController, public clasesServices : ClasesServiceProvider, public userService : UserServiceProvider) {
   }
 
   ionViewDidEnter() { 
@@ -39,7 +41,7 @@ export class CandidatoClasePage {
   }
 
   Aceptar(){
-    this.navCtrl.pop();
+    
     var fecha = new Date();
     fecha.setHours( fecha.getHours() - 5 );
     var clase = {
@@ -55,10 +57,18 @@ export class CandidatoClasePage {
     this.clasesServices.createClase(clase)
       .then( () => {
         this.clasesServices.getClasesListByStudent(this.global.CurrentUser.UsuarioId)
-        .then( clases => {this.global.CurrentClase  = <Clase>clases[0]})
-        .catch( err => console.log(JSON.stringify(err)) )
-      })
-      .catch( err => console.log(JSON.stringify(err)))
+        .then( clases => { 
+          this.global.CurrentClase  = <Clase>clases[0]; 
+          this.userService.getUserById(this.global.CurrentClase.Profesor).then( profe => {
+            this.global.CurrentClase.Profesor = <Usuario>profe[0];
+            this.global.CurrentClase.Estudiante = this.global.CurrentUser;
+            this.navCtrl.pop();
+            this.global.downloadFile(this.global.CurrentClase.Profesor.Correo).then( url => {
+              this.global.CurrentClase.Profesor.Imagen = String(url);
+            }).catch(()=>{ this.global.CurrentClase.Profesor.Imagen = "assets/imgs/User.png"});
+          }).catch( err => { console.log(JSON.stringify(err))})
+        }).catch( err => console.log(JSON.stringify(err)) )
+      }).catch( err => console.log(JSON.stringify(err)))
     var UsuarioId = this.global.ClaseRechazada.user.UsuarioId
     this.global.ClaseRechazada = { user : this.global.CurrentUser, rechazar : false}
     this.Notificar(UsuarioId)

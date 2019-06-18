@@ -1,5 +1,6 @@
+import { MatchPage } from './../match/match';
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { ClasesListPage } from '../clases-list/clases-list';
 import { Chart } from 'chart.js';
 import { GlobalVariablesProvider } from '../../providers/global-variables/global-variables';
@@ -18,12 +19,17 @@ export class DashboardEstudiantePage {
   lastclases : Clase[];
 
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public globalV : GlobalVariablesProvider) {
+  constructor(public platform : Platform, public navCtrl: NavController, public navParams: NavParams, public globalV : GlobalVariablesProvider) {
     this.lastclases = globalV.Clases.slice(0,3);
   }
 
   ionViewDidLoad() {
     this.PutData();
+    this.platform.ready().then( () => {
+      if(JSON.stringify(this.globalV.CurrentClase)!= null){
+        this.navCtrl.push(MatchPage)
+      }
+    })
   }
 
   PutData(){
